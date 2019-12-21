@@ -25,17 +25,8 @@ public class HerokuApp extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-        initializeComponent();
     }
 
-    private void initializeComponent() {
-        DaggerAppComponent.builder()
-                .application(this)
-                .build()
-                .inject(this);
-    }
-
-    @Override
     public AndroidInjector<Activity> activityInjector() {
         return activityDispatchingInjector;
     }
