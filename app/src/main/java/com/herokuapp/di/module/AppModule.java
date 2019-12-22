@@ -5,7 +5,7 @@ import android.app.Application;
 import androidx.room.Room;
 
 import com.herokuapp.data.local.HeroKuDataBase;
-import com.herokuapp.data.local.dao.EntityDao;
+import com.herokuapp.data.local.EntityDao;
 import com.herokuapp.data.remote.ApiConstants;
 import com.herokuapp.data.remote.ApiService;
 import com.herokuapp.data.remote.RequestInterceptor;

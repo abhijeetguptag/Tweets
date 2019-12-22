@@ -4,7 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
 
 import com.herokuapp.data.entity.Comments;
-import com.herokuapp.data.local.dao.EntityDao;
+import com.herokuapp.data.local.EntityDao;
 import com.herokuapp.data.remote.ApiService;
 import com.herokuapp.data.remote.NetworkBoundResource;
 import com.herokuapp.data.remote.Resource;

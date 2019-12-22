@@ -8,7 +8,6 @@ import com.herokuapp.data.entity.AddressConverter;
 import com.herokuapp.data.entity.Author;
 import com.herokuapp.data.entity.Comments;
 import com.herokuapp.data.entity.Post;
-import com.herokuapp.data.local.dao.EntityDao;
 
 @Database(entities = {Author.class, Comments.class, Post.class}, version = 1, exportSchema = false)
 @TypeConverters({AddressConverter.class})
