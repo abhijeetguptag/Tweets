@@ -1,7 +1,9 @@
 package com.herokuapp.data.entity;
 
+import androidx.annotation.NonNull;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
+import androidx.room.TypeConverter;
 
 import com.google.gson.annotations.SerializedName;
 
@@ -11,6 +13,7 @@ public class Author {
 
     @PrimaryKey
     @SerializedName("id")
+    @NonNull
     private String id;
 
     @SerializedName("name")
@@ -75,4 +78,5 @@ public class Author {
     public void setAvatarUrl(String avatarUrl) {
         this.avatarUrl = avatarUrl;
     }
+
 }

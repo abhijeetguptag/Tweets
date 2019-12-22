@@ -1,5 +1,6 @@
 package com.herokuapp.data.entity;
 
+import androidx.annotation.NonNull;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
@@ -10,6 +11,7 @@ public class Comments {
 
     @PrimaryKey
     @SerializedName("id")
+    @NonNull
     private String id;
 
     @SerializedName("postId")
