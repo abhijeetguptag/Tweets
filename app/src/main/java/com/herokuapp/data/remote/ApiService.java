@@ -16,6 +16,6 @@ public interface ApiService {
     @GET("posts?authorId={authorId}&_sort=date&_order=desc&_page={pageNo}&_limit=" + ApiConstants.POSTS_FETCH_LIMIT)
     Call<PostsResponse> fetchPosts(@Query("authorId") String authorId,@Query("_page") int pageNo);
 
-    @GET("posts?postId={authorId}&_sort=date&_order=desc&_page=1&_limit=" + ApiConstants.POSTS_FETCH_LIMIT)
+    @GET("posts?postId={postId}&_sort=date&_order=desc&_page={pageNo}&_limit=" + ApiConstants.POSTS_FETCH_LIMIT)
     Call<PostsResponse> fetchComments(@Query("postId") String postId, @Query("_page") int pageNo);
 }
