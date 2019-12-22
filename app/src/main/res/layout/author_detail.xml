@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/size_120dp"
+        android:id="@+id/rvAuthor"
+        android:background="#8B98C8">
+
+        <ImageView
+            android:layout_width="@dimen/size_100dp"
+            android:layout_height="@dimen/size_100dp"
+            android:src="@drawable/img"
+            android:layout_centerVertical="true"
+            android:id="@+id/ivAuthor"
+            android:layout_marginStart="@dimen/size_10dp"
+            android:contentDescription="@null"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toEndOf="@+id/ivAuthor"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="@dimen/size_10dp"
+            android:padding="@dimen/size_10dp"
+            android:maxLines="2"
+            android:layout_marginTop="@dimen/size_10dp"
+            android:textColor="@android:color/black"
+            android:textSize="@dimen/size_20sp"
+            android:id="@+id/tvTitle"
+            android:text="Quis doloribus libero ipsam."/>
+    </RelativeLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/rvAuthor"
+        android:layout_marginTop="@dimen/size_10dp"
+        android:textColor="@android:color/black"
+        android:textSize="@dimen/size_20sp"
+        android:id="@+id/tvDesc"
+        android:background="@drawable/background_selector"
+        android:padding="@dimen/size_10dp"
+        android:layout_marginStart="@dimen/size_10dp"
+        android:text="Description:"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tvDesc"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/size_10dp"
+        android:textColor="@android:color/darker_gray"
+        android:textSize="@dimen/size_20sp"
+        android:id="@+id/tvBody"
+        android:padding="@dimen/size_10dp"
+        android:text="Quibusdam nemo dolor cum. Nihil et nisi atque ut earum magnam dolorem quia. Eveniet deleniti et voluptatem molestiae. Rerum nostrum nam illum et corrupti soluta fugit voluptate. Error assumenda qui rerum dolor."/>
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tvBody"
+        android:layout_marginTop="@dimen/size_10dp"
+        android:textColor="@android:color/black"
+        android:textSize="@dimen/size_20sp"
+        android:id="@+id/tvComments"
+        android:background="@drawable/background_selector"
+        android:padding="@dimen/size_10dp"
+        android:layout_marginStart="@dimen/size_10dp"
+        android:text="Comments:"/>
+
+    <include layout="@layout/item_layout_comments"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/size_20dp"
+        android:layout_below="@+id/tvComments"/>
+
+</RelativeLayout>
