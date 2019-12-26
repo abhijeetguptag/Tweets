@@ -1,7 +1,7 @@
 package com.herokuapp.viewmodel;
 
-import androidx.lifecycle.LiveData;
-import androidx.lifecycle.ViewModel;
+import android.arch.lifecycle.LiveData;
+import android.arch.lifecycle.ViewModel;
 
 import com.herokuapp.data.entity.Author;
 import com.herokuapp.data.remote.Resource;

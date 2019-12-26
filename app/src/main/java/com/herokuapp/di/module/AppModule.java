@@ -1,11 +1,11 @@
 package com.herokuapp.di.module;
 
 import android.app.Application;
+import android.arch.persistence.room.Room;
 
-import androidx.room.Room;
 
-import com.herokuapp.data.local.HeroKuDataBase;
 import com.herokuapp.data.local.EntityDao;
+import com.herokuapp.data.local.HeroKuDataBase;
 import com.herokuapp.data.remote.ApiConstants;
 import com.herokuapp.data.remote.ApiService;
 import com.herokuapp.data.remote.RequestInterceptor;
@@ -57,7 +57,7 @@ public class AppModule {
 
     @Provides
     @Singleton
-    EntityDao provideArticleDao(HeroKuDataBase articleDatabase) {
+    EntityDao provideDao(HeroKuDataBase articleDatabase) {
         return articleDatabase.entityDao();
     }
 

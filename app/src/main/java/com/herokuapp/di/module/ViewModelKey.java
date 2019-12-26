@@ -1,7 +1,8 @@
 package com.herokuapp.di.module;
 
 
-import androidx.lifecycle.ViewModel;
+
+import android.arch.lifecycle.ViewModel;
 
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;

@@ -1,7 +1,9 @@
 package com.herokuapp.viewmodel;
 
-import androidx.lifecycle.LiveData;
-import androidx.lifecycle.ViewModel;
+
+
+import android.arch.lifecycle.LiveData;
+import android.arch.lifecycle.ViewModel;
 
 import com.herokuapp.data.entity.Post;
 import com.herokuapp.data.remote.Resource;
@@ -16,8 +18,8 @@ public class PostViewModel extends ViewModel {
     private final LiveData<Resource<List<Post>>> fetchPostOfAuthor;
 
     @Inject
-    public PostViewModel(PostsRepository postsRepository, String authorId, int pageNo) {
-        fetchPostOfAuthor = postsRepository.loadPostAssociatedWithAuthor(authorId, pageNo);
+    public PostViewModel(PostsRepository postsRepository) {
+        fetchPostOfAuthor = postsRepository.loadPostAssociatedWithAuthor("authorId", 7);
     }
 
     public LiveData<Resource<List<Post>>> getPost() {

@@ -1,36 +1,57 @@
 package com.herokuapp.data.entity;
 
-import androidx.annotation.NonNull;
-import androidx.room.Entity;
-import androidx.room.PrimaryKey;
+import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.PrimaryKey;
+import android.os.Parcel;
+import android.os.Parcelable;
+import android.support.annotation.NonNull;
 
 import com.google.gson.annotations.SerializedName;
 
 @Entity(tableName = "comments")
-public class Comments {
+public class Comments implements Parcelable {
 
+    public static final Creator<Comments> CREATOR = new Creator<Comments>() {
+        @Override
+        public Comments createFromParcel(Parcel in) {
+            return new Comments(in);
+        }
+
+        @Override
+        public Comments[] newArray(int size) {
+            return new Comments[size];
+        }
+    };
     @PrimaryKey
     @SerializedName("id")
     @NonNull
     private String id;
-
     @SerializedName("postId")
     private String postId;
-
     @SerializedName("date")
     private String date;
-
     @SerializedName("body")
     private String body;
-
     @SerializedName("userName")
     private String userName;
-
     @SerializedName("email")
     private String email;
-
     @SerializedName("avatarUrl")
     private String avatarUrl;
+
+    public Comments() {
+
+    }
+
+    protected Comments(Parcel in) {
+        id = in.readString();
+        postId = in.readString();
+        date = in.readString();
+        body = in.readString();
+        userName = in.readString();
+        email = in.readString();
+        avatarUrl = in.readString();
+    }
 
     public String getId() {
         return id;
@@ -89,4 +110,19 @@ public class Comments {
     }
 
 
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(id);
+        dest.writeString(postId);
+        dest.writeString(date);
+        dest.writeString(body);
+        dest.writeString(userName);
+        dest.writeString(email);
+        dest.writeString(avatarUrl);
+    }
 }

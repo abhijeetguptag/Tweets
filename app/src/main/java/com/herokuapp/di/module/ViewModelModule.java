@@ -1,9 +1,10 @@
 package com.herokuapp.di.module;
 
-import androidx.lifecycle.ViewModel;
-import androidx.lifecycle.ViewModelProvider;
 
-import com.herokuapp.data.entity.Post;
+
+import android.arch.lifecycle.ViewModel;
+import android.arch.lifecycle.ViewModelProvider;
+
 import com.herokuapp.viewmodel.AuthorsViewModel;
 import com.herokuapp.viewmodel.CommentsViewModel;
 import com.herokuapp.viewmodel.PostViewModel;

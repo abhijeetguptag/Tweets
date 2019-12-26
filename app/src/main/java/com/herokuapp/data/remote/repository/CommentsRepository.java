@@ -1,7 +1,8 @@
 package com.herokuapp.data.remote.repository;
 
-import androidx.annotation.NonNull;
-import androidx.lifecycle.LiveData;
+
+import android.arch.lifecycle.LiveData;
+import android.support.annotation.NonNull;
 
 import com.herokuapp.data.entity.Comments;
 import com.herokuapp.data.local.EntityDao;

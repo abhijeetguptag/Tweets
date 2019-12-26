@@ -1,7 +1,9 @@
 package com.herokuapp.data.remote.repository;
 
-import androidx.annotation.NonNull;
-import androidx.lifecycle.LiveData;
+
+
+import android.arch.lifecycle.LiveData;
+import android.support.annotation.NonNull;
 
 import com.herokuapp.data.entity.Author;
 import com.herokuapp.data.local.EntityDao;
@@ -52,7 +54,7 @@ public class AuthorsRepository {
 
 
 //        @SuppressLint("CheckResult")
-//        public void loadAuthorDetail(String url, AuthorClickListener responseListener) {
+//        public void loadAuthorDetail(String url, PostsClickListener responseListener) {
 //            Author author = new Author();
 //            Observable.fromCallable(() -> {
 //                author.setId();

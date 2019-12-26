@@ -11,49 +11,49 @@ import android.view.ViewGroup;
 
 
 import com.herokuapp.R;
-import com.herokuapp.data.entity.Author;
+import com.herokuapp.data.entity.Post;
 import com.herokuapp.data.remote.Status;
-import com.herokuapp.databinding.AuthorListBinding;
-import com.herokuapp.view.AuthorListCallBack;
-import com.herokuapp.view.adapter.AuthorListAdapter;
+import com.herokuapp.databinding.PostListBinding;
+import com.herokuapp.view.PostsClickListener;
+import com.herokuapp.view.adapter.PostListAdapter;
 import com.herokuapp.view.base.BaseFragment;
-import com.herokuapp.viewmodel.AuthorsViewModel;
+import com.herokuapp.viewmodel.PostViewModel;
 
-public class AuthorFragment extends BaseFragment<AuthorsViewModel, AuthorListBinding> implements AuthorListCallBack {
+public class PostsFragment extends BaseFragment<PostViewModel, PostListBinding> implements PostsClickListener {
 
-    public static AuthorFragment newInstance() {
+    public static PostsFragment newInstance() {
         Bundle args = new Bundle();
-        AuthorFragment fragment = new AuthorFragment();
+        PostsFragment fragment = new PostsFragment();
         fragment.setArguments(args);
         return fragment;
     }
 
     @Override
-    public Class<AuthorsViewModel> getViewModel() {
-        return AuthorsViewModel.class;
+    public Class<PostViewModel> getViewModel() {
+        return PostViewModel.class;
     }
 
     @Override
     public int getLayoutRes() {
-        return R.layout.author_list;
+        return R.layout.post_list;
     }
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
-        dataBinding.authorRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        dataBinding.authorRecyclerView.setAdapter(new AuthorListAdapter(this));
+        dataBinding.postRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        dataBinding.postRecyclerView.setAdapter(new PostListAdapter(this));
         return dataBinding.getRoot();
     }
 
 
     @Override
-    public void onListItemClicked(Author author) {
+    public void onListItemClicked(Post post) {
         if (null != getActivity()) {
             Bundle args = new Bundle();
-            args.putParcelable(FragmentUtils.POST_KEY, author);
-            PostsFragment detailFragment = new PostsFragment();
+            args.putParcelable(FragmentUtils.POST_KEY, post);
+            CommentFragment detailFragment = new CommentFragment();
             detailFragment.setArguments(args);
             FragmentUtils.replaceFragment((AppCompatActivity) getActivity(), detailFragment, R.id.fragContainer, true);
         }
@@ -63,17 +63,18 @@ public class AuthorFragment extends BaseFragment<AuthorsViewModel, AuthorListBin
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        viewModel.getAuthorList()
+
+        viewModel.getPost()
                 .observe(this, listResource -> {
                     if (null != listResource && (listResource.status == Status.ERROR || listResource.status == Status.SUCCESS)) {
-                        dataBinding.progressBarAuthor.setVisibility(View.GONE);
-                        dataBinding.errorLayoutAuthor.setText(listResource.getMessage());
+                        dataBinding.progressBarPost.setVisibility(View.GONE);
+                        dataBinding.errorLayoutPost.setText(listResource.getMessage());
                     }
                     dataBinding.setResource(listResource);
 
                     // If the cached data is already showing then no need to show the error
-                    if (null != dataBinding.authorRecyclerView.getAdapter() && dataBinding.authorRecyclerView.getAdapter().getItemCount() > 0) {
-                        dataBinding.errorLayoutAuthor.setVisibility(View.GONE);
+                    if (null != dataBinding.postRecyclerView.getAdapter() && dataBinding.postRecyclerView.getAdapter().getItemCount() > 0) {
+                        dataBinding.errorLayoutPost.setVisibility(View.GONE);
                     }
                 });
 

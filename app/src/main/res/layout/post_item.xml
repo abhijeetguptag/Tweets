@@ -3,8 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <data>
         <variable
-            name="author"
-            type="com.herokuapp.data.entity.Author" />
+            name="post"
+            type="com.herokuapp.data.entity.Post" />
     </data>
 
     <android.support.v7.widget.CardView
@@ -19,7 +19,7 @@
             android:layout_height="match_parent">
 
             <ImageView
-                android:id="@+id/ivAuthor_item"
+                android:id="@+id/ivPost_item"
                 android:layout_width="@dimen/size_40dp"
                 android:layout_height="@dimen/size_40dp"
                 android:layout_centerVertical="true"
@@ -30,38 +30,40 @@
             <RelativeLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_toEndOf="@+id/ivAuthor_item"
+                android:layout_toEndOf="@+id/ivPost_item"
                 android:layout_centerVertical="true"
                 android:layout_marginStart="@dimen/size_50dp">
 
                 <TextView
-                    android:id="@+id/tvAuthorName_item"
+                    android:id="@+id/tvPost_Title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="left"
                     android:layout_marginTop="@dimen/size_10dp"
                     android:textColor="@android:color/black"
                     android:textSize="@dimen/size_20sp"
-                    android:text="@{author.name}"
+                    android:text="@{post.title}"
+                    android:singleLine="true"
                     android:textStyle="bold" />
                 <TextView
-                    android:id="@+id/tvUserName_item"
+                    android:id="@+id/tvPost_body"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/tvAuthorName_item"
+                    android:layout_below="@+id/tvPost_Title"
                     android:layout_marginTop="@dimen/size_10dp"
                     android:textColor="@android:color/darker_gray"
-                    android:text="@{author.userName}"
+                    android:text="@{post.body}"
                     android:textSize="@dimen/size_15sp"
-                    android:textStyle="bold" />
+                    android:singleLine="false"
+                     />
                 <TextView
-                    android:id="@+id/tvUserEmail_item"
+                    android:id="@+id/tvPost_date"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/tvUserName_item"
                     android:layout_marginTop="@dimen/size_10dp"
                     android:textColor="@android:color/darker_gray"
-                    android:text="@{author.email}"
+                    android:text="@{post.date}"
                     android:textSize="@dimen/size_15sp"
                     android:textStyle="bold" />
             </RelativeLayout>

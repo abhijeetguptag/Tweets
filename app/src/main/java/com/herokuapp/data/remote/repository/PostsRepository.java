@@ -1,7 +1,8 @@
 package com.herokuapp.data.remote.repository;
 
-import androidx.annotation.NonNull;
-import androidx.lifecycle.LiveData;
+
+import android.arch.lifecycle.LiveData;
+import android.support.annotation.NonNull;
 
 import com.herokuapp.data.entity.Post;
 import com.herokuapp.data.local.EntityDao;
@@ -46,7 +47,7 @@ public class PostsRepository {
             @NonNull
             @Override
             protected Call<PostsResponse> createCall() {
-                return apiService.fetchPosts(authorId,howfarback);
+                return apiService.fetchPosts(authorId, howfarback);
             }
         }.getAsLiveData();
     }

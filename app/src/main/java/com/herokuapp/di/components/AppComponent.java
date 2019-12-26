@@ -20,8 +20,6 @@ import dagger.android.AndroidInjectionModule;
         ActivityBuilderModule.class})
 public interface AppComponent {
 
-    void inject(HerokuApp herokuAppApp);
-
     @Component.Builder
     interface Builder {
         @BindsInstance
@@ -29,4 +27,6 @@ public interface AppComponent {
 
         AppComponent build();
     }
+
+    void inject(HerokuApp herokuApp);
 }

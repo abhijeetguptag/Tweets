@@ -1,12 +1,11 @@
 package com.herokuapp.utils;
 
+import android.arch.lifecycle.LifecycleOwner;
+import android.arch.lifecycle.MutableLiveData;
+import android.arch.lifecycle.Observer;
+import android.support.annotation.MainThread;
+import android.support.annotation.Nullable;
 import android.util.Log;
-
-import androidx.annotation.MainThread;
-import androidx.annotation.Nullable;
-import androidx.lifecycle.LifecycleOwner;
-import androidx.lifecycle.MutableLiveData;
-import androidx.lifecycle.Observer;
 
 import java.util.concurrent.atomic.AtomicBoolean;
 
@@ -28,7 +27,7 @@ public class SingleLiveEvent<T> extends MutableLiveData<T> {
 
     @MainThread
     @Override
-    public void observe(LifecycleOwner owner, final Observer<? super T> observer) {
+    public void observe(LifecycleOwner owner, final Observer<T> observer) {
 
         if (hasActiveObservers()) {
             Log.w(TAG, "Multiple observers registered but only one will be notified of changes.");

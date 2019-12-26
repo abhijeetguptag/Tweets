@@ -1,7 +1,8 @@
 package com.herokuapp.viewmodel;
 
-import androidx.lifecycle.LiveData;
-import androidx.lifecycle.ViewModel;
+
+import android.arch.lifecycle.LiveData;
+import android.arch.lifecycle.ViewModel;
 
 import com.herokuapp.data.entity.Comments;
 import com.herokuapp.data.remote.Resource;
@@ -11,17 +12,17 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+
 public class CommentsViewModel extends ViewModel {
     private final LiveData<Resource<List<Comments>>> commentsList;
 
     @Inject
-    public CommentsViewModel(CommentsRepository commentsRepository, String authorId, int pageNo) {
-        commentsList = commentsRepository.loadCommentAssociatedWithPost(authorId, pageNo);
+    public CommentsViewModel(CommentsRepository commentsRepository) {
+        commentsList = commentsRepository.loadCommentAssociatedWithPost("authorId", 5);
     }
 
     public LiveData<Resource<List<Comments>>> getComments() {
         return commentsList;
     }
-
 
 }
