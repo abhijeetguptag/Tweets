@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
+
     <data>
+
         <variable
             name="author"
             type="com.herokuapp.data.entity.Author" />
@@ -10,8 +12,8 @@
     <android.support.v7.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="@dimen/size_110dp"
-        android:elevation="@dimen/size_10dp"
         android:layout_margin="@dimen/size_10dp"
+        android:elevation="@dimen/size_10dp"
         app:cardBackgroundColor="@android:color/white">
 
         <RelativeLayout
@@ -26,13 +28,14 @@
                 android:layout_marginStart="@dimen/size_20dp"
                 android:background="@drawable/img"
                 android:contentDescription="@null"
-                />
+                app:avatarUrl="@{author.avatarUrl}" />
+
             <RelativeLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_toEndOf="@+id/ivAuthor_item"
                 android:layout_centerVertical="true"
-                android:layout_marginStart="@dimen/size_50dp">
+                android:layout_marginStart="@dimen/size_50dp"
+                android:layout_toEndOf="@+id/ivAuthor_item">
 
                 <TextView
                     android:id="@+id/tvAuthorName_item"
@@ -40,29 +43,31 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="left"
                     android:layout_marginTop="@dimen/size_10dp"
+                    android:text="@{author.name}"
                     android:textColor="@android:color/black"
                     android:textSize="@dimen/size_20sp"
-                    android:text="@{author.name}"
                     android:textStyle="bold" />
+
                 <TextView
                     android:id="@+id/tvUserName_item"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/tvAuthorName_item"
                     android:layout_marginTop="@dimen/size_10dp"
-                    android:textColor="@android:color/darker_gray"
                     android:text="@{author.userName}"
-                    android:textSize="@dimen/size_15sp"
+                    android:textColor="@android:color/darker_gray"
+                    android:textSize="@dimen/size_14sp"
                     android:textStyle="bold" />
+
                 <TextView
                     android:id="@+id/tvUserEmail_item"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/tvUserName_item"
                     android:layout_marginTop="@dimen/size_10dp"
-                    android:textColor="@android:color/darker_gray"
                     android:text="@{author.email}"
-                    android:textSize="@dimen/size_15sp"
+                    android:textColor="@android:color/darker_gray"
+                    android:textSize="@dimen/size_14sp"
                     android:textStyle="bold" />
             </RelativeLayout>
         </RelativeLayout>

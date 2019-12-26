@@ -1,7 +1,5 @@
 package com.herokuapp.data.remote.repository;
 
-
-
 import android.arch.lifecycle.LiveData;
 import android.support.annotation.NonNull;
 
@@ -10,17 +8,17 @@ import com.herokuapp.data.local.EntityDao;
 import com.herokuapp.data.remote.ApiService;
 import com.herokuapp.data.remote.NetworkBoundResource;
 import com.herokuapp.data.remote.Resource;
-import com.herokuapp.data.remote.response.AuthorsResponse;
-
 import java.util.List;
 
 import javax.inject.Inject;
 
 import retrofit2.Call;
+import retrofit2.Response;
 
 public class AuthorsRepository {
     private final EntityDao articleDao;
     private final ApiService apiService;
+
 
     @Inject
     AuthorsRepository(EntityDao dao, ApiService service) {
@@ -30,12 +28,12 @@ public class AuthorsRepository {
 
 
     public LiveData<Resource<List<Author>>> loadAuthors(int howfarback) {
-        return new NetworkBoundResource<List<Author>, AuthorsResponse>() {
+        return new NetworkBoundResource<List<Author>, List<Author>>() {
 
             @Override
-            protected void saveCallResult(AuthorsResponse item) {
+            protected void saveCallResult(List<Author> item) {
                 if (null != item)
-                    articleDao.saveAuthorList(item.getAuthors());
+                    articleDao.saveAuthorList(item);
             }
 
             @NonNull
@@ -46,24 +44,23 @@ public class AuthorsRepository {
 
             @NonNull
             @Override
-            protected Call<AuthorsResponse> createCall() {
+            protected Call<List<Author>> createCall() {
                 return apiService.fetchAuthor(howfarback);
             }
+
+            @NonNull
+            @Override
+            protected void nextPageURL(String nextPageURL) {
+
+            }
+
+            @NonNull
+            @Override
+            protected void previousPageURL(String previousPageURL) {
+
+            }
+
+
         }.getAsLiveData();
     }
-
-
-//        @SuppressLint("CheckResult")
-//        public void loadAuthorDetail(String url, PostsClickListener responseListener) {
-//            Author author = new Author();
-//            Observable.fromCallable(() -> {
-//                author.setId();
-//                return false;
-//            }).subscribeOn(Schedulers.io())
-//                    .observeOn(AndroidSchedulers.mainThread())
-//                    .subscribe(result -> responseListener.onSuccess(author),
-//                            (error -> responseListener.onFailure(error.getMessage())));
-//
-//        }
-
 }

@@ -30,12 +30,12 @@ public class PostsRepository {
 
 
     public LiveData<Resource<List<Post>>> loadPostAssociatedWithAuthor(String authorId, int howfarback) {
-        return new NetworkBoundResource<List<Post>, PostsResponse>() {
+        return new NetworkBoundResource<List<Post>, List<Post>>() {
 
             @Override
-            protected void saveCallResult(PostsResponse posts) {
+            protected void saveCallResult(List<Post> posts) {
                 if (null != posts)
-                    articleDao.savePosts(posts.getPosts());
+                    articleDao.savePosts(posts);
             }
 
             @NonNull
@@ -46,8 +46,20 @@ public class PostsRepository {
 
             @NonNull
             @Override
-            protected Call<PostsResponse> createCall() {
+            protected Call<List<Post>> createCall() {
                 return apiService.fetchPosts(authorId, howfarback);
+            }
+
+            @NonNull
+            @Override
+            protected void nextPageURL(String nextPageURL) {
+
+            }
+
+            @NonNull
+            @Override
+            protected void previousPageURL(String previousPageURL) {
+
             }
         }.getAsLiveData();
     }

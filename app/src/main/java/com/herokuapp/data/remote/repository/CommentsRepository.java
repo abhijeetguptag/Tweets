@@ -28,13 +28,13 @@ public class CommentsRepository {
     }
 
 
-    public LiveData<Resource<List<Comments>>> loadCommentAssociatedWithPost(String authorId, int howfarback) {
-        return new NetworkBoundResource<List<Comments>, PostsResponse>() {
+    public LiveData<Resource<List<Comments>>> loadCommentAssociatedWithPost(String postId, int howfarback) {
+        return new NetworkBoundResource<List<Comments>, List<Comments>>() {
 
             @Override
-            protected void saveCallResult(PostsResponse posts) {
-                if (null != posts)
-                    articleDao.savePosts(posts.getPosts());
+            protected void saveCallResult(List<Comments> comments) {
+                if (null != comments)
+                    articleDao.saveComments(comments);
             }
 
             @NonNull
@@ -45,8 +45,20 @@ public class CommentsRepository {
 
             @NonNull
             @Override
-            protected Call<PostsResponse> createCall() {
-                return apiService.fetchPosts(authorId, howfarback);
+            protected Call <List<Comments> >createCall() {
+                return apiService.fetchComments(postId, howfarback);
+            }
+
+            @NonNull
+            @Override
+            protected void nextPageURL(String nextPageURL) {
+
+            }
+
+            @NonNull
+            @Override
+            protected void previousPageURL(String previousPageURL) {
+
             }
         }.getAsLiveData();
     }

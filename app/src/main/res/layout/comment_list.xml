@@ -3,7 +3,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
+
         <import type="android.view.View" />
+
         <variable
             name="resource"
             type="com.herokuapp.data.remote.Resource" />
@@ -16,19 +18,18 @@
 
         <include
             android:id="@+id/progressBar_Comment"
-            layout="@layout/progress_bar"/>
+            layout="@layout/progress_bar" />
 
         <TextView
             android:id="@+id/error_layout_Comment"
-            android:orientation="vertical"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:gravity="center_horizontal|center_vertical"
             android:layout_margin="@dimen/size_10dp"
+            android:gravity="center_horizontal|center_vertical"
+            android:orientation="vertical"
             android:text="@{resource.message}"
             android:textSize="16sp"
-            android:textStyle="bold">
-        </TextView>/>
+            android:textStyle="bold"></TextView>/>
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/commentRecyclerView"

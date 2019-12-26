@@ -13,14 +13,16 @@ import javax.inject.Inject;
 
 public class AuthorsViewModel extends ViewModel {
 
-    private final LiveData<Resource<List<Author>>> authorList;
+    private  LiveData<Resource<List<Author>>> authorList;
+    private final AuthorsRepository authorsRepository;
 
     @Inject
     public AuthorsViewModel(AuthorsRepository authorsRepository) {
-        authorList = authorsRepository.loadAuthors(1);
+        this.authorsRepository=authorsRepository;
     }
 
-    public LiveData<Resource<List<Author>>> getAuthorList() {
+    public LiveData<Resource<List<Author>>> getAuthorList(int pageNo) {
+        authorList = authorsRepository.loadAuthors(pageNo);
         return authorList;
     }
 

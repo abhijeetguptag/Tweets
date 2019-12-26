@@ -10,7 +10,9 @@ import android.view.ViewGroup;
 
 
 import com.herokuapp.R;
+import com.herokuapp.data.entity.Author;
 import com.herokuapp.data.entity.Comments;
+import com.herokuapp.data.entity.Post;
 import com.herokuapp.data.remote.Status;
 import com.herokuapp.databinding.CommentListBinding;
 import com.herokuapp.view.CommentListClickCallBack;
@@ -50,21 +52,25 @@ public class CommentFragment extends BaseFragment<CommentsViewModel, CommentList
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+        Bundle bundle = getArguments();
+        if(bundle !=null) {
+            Post post = bundle.getParcelable(FragmentUtils.POST_KEY);
+            if (post != null) {
+                viewModel.getComments(post.getId(),"1")
+                        .observe(this, listResource -> {
+                            if (null != listResource && (listResource.status == Status.ERROR || listResource.status == Status.SUCCESS)) {
+                                dataBinding.progressBarComment.setVisibility(View.GONE);
+                                dataBinding.errorLayoutComment.setText(listResource.getMessage());
+                            }
+                            dataBinding.setResource(listResource);
 
-
-        viewModel.getComments()
-                .observe(this, listResource -> {
-                    if (null != listResource && (listResource.status == Status.ERROR || listResource.status == Status.SUCCESS)) {
-                        dataBinding.progressBarComment.setVisibility(View.GONE);
-                        dataBinding.errorLayoutComment.setText(listResource.getMessage());
-                    }
-                    dataBinding.setResource(listResource);
-
-                    // If the cached data is already showing then no need to show the error
-                    if (null != dataBinding.commentRecyclerView.getAdapter() && dataBinding.commentRecyclerView.getAdapter().getItemCount() > 0) {
-                        dataBinding.errorLayoutComment.setVisibility(View.GONE);
-                    }
-                });
+                            // If the cached data is already showing then no need to show the error
+                            if (null != dataBinding.commentRecyclerView.getAdapter() && dataBinding.commentRecyclerView.getAdapter().getItemCount() > 0) {
+                                dataBinding.errorLayoutComment.setVisibility(View.GONE);
+                            }
+                        });
+            }
+        }
 
     }
 

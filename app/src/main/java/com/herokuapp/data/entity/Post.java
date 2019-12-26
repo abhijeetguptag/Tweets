@@ -9,6 +9,11 @@ import android.support.annotation.NonNull;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Locale;
+
 
 @Entity(tableName = "posts")
 public class Post implements Parcelable {
@@ -86,7 +91,7 @@ public class Post implements Parcelable {
     }
 
     public String getDate() {
-        return date;
+       return date;
     }
 
     public void setDate(String date) {

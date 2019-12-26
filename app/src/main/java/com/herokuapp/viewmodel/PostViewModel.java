@@ -15,14 +15,18 @@ import javax.inject.Inject;
 
 public class PostViewModel extends ViewModel {
 
-    private final LiveData<Resource<List<Post>>> fetchPostOfAuthor;
+    private LiveData<Resource<List<Post>>> fetchPostOfAuthor;
+    private final PostsRepository postsRepository;
 
     @Inject
     public PostViewModel(PostsRepository postsRepository) {
-        fetchPostOfAuthor = postsRepository.loadPostAssociatedWithAuthor("authorId", 7);
+        this.postsRepository = postsRepository;
     }
 
-    public LiveData<Resource<List<Post>>> getPost() {
+    public LiveData<Resource<List<Post>>> getPost(String authorId) {
+
+        this.fetchPostOfAuthor = postsRepository.loadPostAssociatedWithAuthor(authorId, 1);
+
         return fetchPostOfAuthor;
     }
 }

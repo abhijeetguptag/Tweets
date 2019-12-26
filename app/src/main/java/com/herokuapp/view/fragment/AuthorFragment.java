@@ -52,8 +52,8 @@ public class AuthorFragment extends BaseFragment<AuthorsViewModel, AuthorListBin
     public void onListItemClicked(Author author) {
         if (null != getActivity()) {
             Bundle args = new Bundle();
-            args.putParcelable(FragmentUtils.POST_KEY, author);
-            PostsFragment detailFragment = new PostsFragment();
+            args.putParcelable(FragmentUtils.AUTHOR_KEY, author);
+            PostsFragment detailFragment = PostsFragment.newInstance();
             detailFragment.setArguments(args);
             FragmentUtils.replaceFragment((AppCompatActivity) getActivity(), detailFragment, R.id.fragContainer, true);
         }

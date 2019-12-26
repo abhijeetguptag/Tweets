@@ -56,6 +56,7 @@ public abstract class NetworkBoundResource<T, V> {
         createCall().enqueue(new Callback<V>() {
             @Override
             public void onResponse(@NonNull Call<V> call, @NonNull Response<V> response) {
+                String linkHeader = response.headers().get("Link");
                 result.removeSource(dbSource);
                 saveResultAndReInit(response.body());
             }
@@ -120,6 +121,14 @@ public abstract class NetworkBoundResource<T, V> {
     @NonNull
     @MainThread
     protected abstract Call<V> createCall();
+
+    @NonNull
+    @MainThread
+    protected abstract void nextPageURL(String nextPageURL);
+
+    @NonNull
+    @MainThread
+    protected abstract void previousPageURL(String previousPageURL);
 
     public final LiveData<Resource<T>> getAsLiveData() {
         return result;
