@@ -13,7 +13,6 @@ import javax.inject.Inject;
 
 public class AuthorsViewModel extends ViewModel {
 
-    private  LiveData<Resource<List<Author>>> authorList;
     private final AuthorsRepository authorsRepository;
 
     @Inject
@@ -22,8 +21,7 @@ public class AuthorsViewModel extends ViewModel {
     }
 
     public LiveData<Resource<List<Author>>> getAuthorList(int pageNo) {
-        authorList = authorsRepository.loadAuthors(pageNo);
-        return authorList;
+        return authorsRepository.loadAuthors(pageNo);
     }
 
 }

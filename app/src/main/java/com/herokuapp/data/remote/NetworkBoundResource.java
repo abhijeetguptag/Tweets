@@ -29,7 +29,7 @@ public abstract class NetworkBoundResource<T, V> {
     protected NetworkBoundResource() {
         result.setValue(Resource.loading(null));
 
-        // Always load the data from DB intially so that we have
+        // Always load the data from DB initially so that we have
         LiveData<T> dbSource = loadFromDb();
 
         // Fetch the data from network and add it to the resource
@@ -47,7 +47,7 @@ public abstract class NetworkBoundResource<T, V> {
     }
 
     /**
-     * This method fetches the data from remoted service and save it to local db
+     * This method fetches the data from remote service and save it to local db
      *
      * @param dbSource - Database source
      */
@@ -122,13 +122,12 @@ public abstract class NetworkBoundResource<T, V> {
     @MainThread
     protected abstract Call<V> createCall();
 
-    @NonNull
-    @MainThread
-    protected abstract void nextPageURL(String nextPageURL);
 
-    @NonNull
     @MainThread
-    protected abstract void previousPageURL(String previousPageURL);
+    protected abstract void nextPageURL(@NonNull String nextPageURL);
+
+    @MainThread
+    protected abstract void previousPageURL(@NonNull String previousPageURL);
 
     public final LiveData<Resource<T>> getAsLiveData() {
         return result;

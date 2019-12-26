@@ -10,7 +10,6 @@ import android.view.ViewGroup;
 
 
 import com.herokuapp.R;
-import com.herokuapp.data.entity.Author;
 import com.herokuapp.data.entity.Comments;
 import com.herokuapp.data.entity.Post;
 import com.herokuapp.data.remote.Status;
@@ -56,7 +55,7 @@ public class CommentFragment extends BaseFragment<CommentsViewModel, CommentList
         if(bundle !=null) {
             Post post = bundle.getParcelable(FragmentUtils.POST_KEY);
             if (post != null) {
-                viewModel.getComments(post.getId(),"1")
+                viewModel.getComments(post.getId(),1)
                         .observe(this, listResource -> {
                             if (null != listResource && (listResource.status == Status.ERROR || listResource.status == Status.SUCCESS)) {
                                 dataBinding.progressBarComment.setVisibility(View.GONE);

@@ -13,7 +13,6 @@ import java.util.List;
 import javax.inject.Inject;
 
 import retrofit2.Call;
-import retrofit2.Response;
 
 public class AuthorsRepository {
     private final EntityDao articleDao;
@@ -27,7 +26,7 @@ public class AuthorsRepository {
     }
 
 
-    public LiveData<Resource<List<Author>>> loadAuthors(int howfarback) {
+    public LiveData<Resource<List<Author>>> loadAuthors(int pageNo) {
         return new NetworkBoundResource<List<Author>, List<Author>>() {
 
             @Override
@@ -45,20 +44,21 @@ public class AuthorsRepository {
             @NonNull
             @Override
             protected Call<List<Author>> createCall() {
-                return apiService.fetchAuthor(howfarback);
+                return apiService.fetchAuthor(pageNo);
             }
 
-            @NonNull
+
             @Override
-            protected void nextPageURL(String nextPageURL) {
+            protected void nextPageURL(@NonNull String nextPageURL) {
 
             }
 
-            @NonNull
             @Override
-            protected void previousPageURL(String previousPageURL) {
+            protected void previousPageURL(@NonNull String previousPageURL) {
 
             }
+
+
 
 
         }.getAsLiveData();

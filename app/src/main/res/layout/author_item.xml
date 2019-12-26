@@ -26,7 +26,6 @@
                 android:layout_height="@dimen/size_40dp"
                 android:layout_centerVertical="true"
                 android:layout_marginStart="@dimen/size_20dp"
-                android:background="@drawable/img"
                 android:contentDescription="@null"
                 app:avatarUrl="@{author.avatarUrl}" />
 
@@ -41,7 +40,7 @@
                     android:id="@+id/tvAuthorName_item"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="left"
+                    android:layout_gravity="start"
                     android:layout_marginTop="@dimen/size_10dp"
                     android:text="@{author.name}"
                     android:textColor="@android:color/black"

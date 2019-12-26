@@ -9,7 +9,6 @@ import com.herokuapp.data.local.EntityDao;
 import com.herokuapp.data.remote.ApiService;
 import com.herokuapp.data.remote.NetworkBoundResource;
 import com.herokuapp.data.remote.Resource;
-import com.herokuapp.data.remote.response.PostsResponse;
 
 import java.util.List;
 
@@ -29,7 +28,7 @@ public class PostsRepository {
     }
 
 
-    public LiveData<Resource<List<Post>>> loadPostAssociatedWithAuthor(String authorId, int howfarback) {
+    public LiveData<Resource<List<Post>>> loadPostAssociatedWithAuthor(String authorId, int pageNo) {
         return new NetworkBoundResource<List<Post>, List<Post>>() {
 
             @Override
@@ -47,16 +46,14 @@ public class PostsRepository {
             @NonNull
             @Override
             protected Call<List<Post>> createCall() {
-                return apiService.fetchPosts(authorId, howfarback);
+                return apiService.fetchPosts(authorId, pageNo);
             }
 
-            @NonNull
             @Override
             protected void nextPageURL(String nextPageURL) {
 
             }
 
-            @NonNull
             @Override
             protected void previousPageURL(String previousPageURL) {
 

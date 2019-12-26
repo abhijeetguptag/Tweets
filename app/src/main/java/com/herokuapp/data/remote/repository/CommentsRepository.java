@@ -9,7 +9,6 @@ import com.herokuapp.data.local.EntityDao;
 import com.herokuapp.data.remote.ApiService;
 import com.herokuapp.data.remote.NetworkBoundResource;
 import com.herokuapp.data.remote.Resource;
-import com.herokuapp.data.remote.response.PostsResponse;
 
 import java.util.List;
 
@@ -49,13 +48,12 @@ public class CommentsRepository {
                 return apiService.fetchComments(postId, howfarback);
             }
 
-            @NonNull
+
             @Override
             protected void nextPageURL(String nextPageURL) {
 
             }
 
-            @NonNull
             @Override
             protected void previousPageURL(String previousPageURL) {
 

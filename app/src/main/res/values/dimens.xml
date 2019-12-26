@@ -1,4 +1,4 @@
-<resources xmlns:tools="http://schemas.android.com/tools">
+<resources>
 
 
     <dimen name="size_10dp">10dp</dimen>

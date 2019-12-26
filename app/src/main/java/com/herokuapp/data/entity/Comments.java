@@ -43,7 +43,7 @@ public class Comments implements Parcelable {
 
     }
 
-    protected Comments(Parcel in) {
+    protected Comments(@NonNull Parcel in) {
         id = in.readString();
         postId = in.readString();
         date = in.readString();
@@ -53,11 +53,12 @@ public class Comments implements Parcelable {
         avatarUrl = in.readString();
     }
 
+    @NonNull
     public String getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(@NonNull String id) {
         this.id = id;
     }
 

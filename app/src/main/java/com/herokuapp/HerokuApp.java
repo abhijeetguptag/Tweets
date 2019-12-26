@@ -16,7 +16,7 @@ public class HerokuApp extends Application implements HasActivityInjector {
     private static HerokuApp sInstance;
 
     @Inject
-    DispatchingAndroidInjector<Activity> activityDispatchingInjector;
+    protected DispatchingAndroidInjector<Activity> activityDispatchingInjector;
 
     public static HerokuApp getAppContext() {
         return sInstance;
@@ -29,10 +29,11 @@ public class HerokuApp extends Application implements HasActivityInjector {
     @Override
     public void onCreate() {
         super.onCreate();
+        setInstance(this);
         initializeComponent();
     }
 
-    protected void initializeComponent() {
+    private void initializeComponent() {
 
         DaggerAppComponent.builder()
                 .application(this)

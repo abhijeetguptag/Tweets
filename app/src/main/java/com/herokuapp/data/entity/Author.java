@@ -46,7 +46,7 @@ public class Author implements Parcelable {
     public Author() {
     }
 
-    protected Author(Parcel in) {
+    protected Author(@NonNull Parcel in) {
         id = in.readString();
         name = in.readString();
         userName = in.readString();
@@ -54,11 +54,12 @@ public class Author implements Parcelable {
         avatarUrl = in.readString();
     }
 
+    @NonNull
     public String getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(@NonNull String id) {
         this.id = id;
     }
 

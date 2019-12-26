@@ -14,7 +14,6 @@ import javax.inject.Inject;
 
 
 public class CommentsViewModel extends ViewModel {
-    private LiveData<Resource<List<Comments>>> commentsList;
     private final CommentsRepository commentsRepository;
 
     @Inject
@@ -22,9 +21,9 @@ public class CommentsViewModel extends ViewModel {
         this.commentsRepository=commentsRepository;
     }
 
-    public LiveData<Resource<List<Comments>>> getComments(String postId, String page) {
+    public LiveData<Resource<List<Comments>>> getComments(String postId, int pageNo) {
 
-        return commentsRepository.loadCommentAssociatedWithPost(postId, 1);
+        return commentsRepository.loadCommentAssociatedWithPost(postId, pageNo);
 
 
     }

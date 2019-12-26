@@ -63,7 +63,7 @@ public class AuthorFragment extends BaseFragment<AuthorsViewModel, AuthorListBin
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        viewModel.getAuthorList()
+        viewModel.getAuthorList(1)
                 .observe(this, listResource -> {
                     if (null != listResource && (listResource.status == Status.ERROR || listResource.status == Status.SUCCESS)) {
                         dataBinding.progressBarAuthor.setVisibility(View.GONE);

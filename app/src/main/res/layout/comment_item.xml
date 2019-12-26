@@ -25,7 +25,7 @@
             <LinearLayout
                 android:id="@+id/userLayout"
                 android:layout_width="120dp"
-                android:layout_height="70dp"
+                android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:orientation="vertical"
                 android:layout_margin="@dimen/size_10dp"
@@ -37,8 +37,8 @@
                     android:layout_width="@dimen/size_30dp"
                     android:layout_height="@dimen/size_30dp"
                     android:layout_gravity="center_horizontal"
-                    android:background="@drawable/img"
-                    android:contentDescription="@null" />
+                    android:contentDescription="@null"
+                    app:avatarUrl="@{comment.avatarUrl}"/>
 
                 <TextView
                     android:id="@+id/tvPost_username"
@@ -68,12 +68,13 @@
             <TextView
                 android:id="@+id/tvComment_Title"
                 android:layout_width="276dp"
-                android:layout_height="56dp"
+                android:layout_height="match_parent"
                 android:layout_toEndOf="@+id/userLayout"
                 android:text="@{comment.body}"
                 android:textColor="@android:color/black"
                 android:textSize="@dimen/size_14sp"
                 android:textStyle="normal"
+                android:layout_margin="@dimen/size_10dp"
                 tools:text="@tools:sample/date/hhmmss" />
         </RelativeLayout>
     </android.support.v7.widget.CardView>

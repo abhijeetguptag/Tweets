@@ -9,10 +9,6 @@ import android.support.annotation.NonNull;
 
 import com.google.gson.annotations.SerializedName;
 
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Locale;
 
 
 @Entity(tableName = "posts")
@@ -48,7 +44,7 @@ public class Post implements Parcelable {
 
     }
 
-    protected Post(Parcel in) {
+    protected Post(@NonNull Parcel in) {
         id = in.readString();
         title = in.readString();
         authorId = in.readString();

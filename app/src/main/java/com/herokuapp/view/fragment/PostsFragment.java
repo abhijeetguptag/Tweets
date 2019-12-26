@@ -66,22 +66,24 @@ public class PostsFragment extends BaseFragment<PostViewModel, PostListBinding> 
         super.onActivityCreated(savedInstanceState);
 
         Bundle bundle = getArguments();
-        if(bundle !=null) {
-            Author author  = bundle.getParcelable(FragmentUtils.AUTHOR_KEY);
-            viewModel.getPost(author.getId())
-                    .observe(this, listResource -> {
-                        if (null != listResource && (listResource.status == Status.ERROR || listResource.status == Status.SUCCESS)) {
-                            dataBinding.progressBarPost.setVisibility(View.GONE);
-                            dataBinding.errorLayoutPost.setText(listResource.getMessage());
-                        }
-                        dataBinding.setResource(listResource);
+        if (bundle != null) {
+            Author author = bundle.getParcelable(FragmentUtils.AUTHOR_KEY);
+            if (author != null) {
+                viewModel.getPost(author.getId())
+                        .observe(this, listResource -> {
+                            if (null != listResource && (listResource.status == Status.ERROR || listResource.status == Status.SUCCESS)) {
+                                dataBinding.progressBarPost.setVisibility(View.GONE);
+                                dataBinding.errorLayoutPost.setText(listResource.getMessage());
+                            }
+                            dataBinding.setResource(listResource);
 
-                        // If the cached data is already showing then no need to show the error
-                        if (null != dataBinding.postRecyclerView.getAdapter() && dataBinding.postRecyclerView.getAdapter().getItemCount() > 0) {
-                            dataBinding.errorLayoutPost.setVisibility(View.GONE);
-                        }
-                    });
+                            // If the cached data is already showing then no need to show the error
+                            if (null != dataBinding.postRecyclerView.getAdapter() && dataBinding.postRecyclerView.getAdapter().getItemCount() > 0) {
+                                dataBinding.errorLayoutPost.setVisibility(View.GONE);
+                            }
+                        });
+            }
+
         }
-
     }
 }

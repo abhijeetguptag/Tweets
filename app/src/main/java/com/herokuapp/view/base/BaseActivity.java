@@ -19,7 +19,7 @@ public abstract class BaseActivity<D extends ViewDataBinding> extends AppCompatA
     @SuppressWarnings("unused")
     public D dataBinding;
     @Inject
-    DispatchingAndroidInjector<Fragment> fragmentAndroidInjector;
+    protected DispatchingAndroidInjector<Fragment> fragmentAndroidInjector;
 
     @LayoutRes
     protected abstract int getLayoutRes();

@@ -6,7 +6,7 @@ import android.arch.persistence.room.TypeConverter;
 import com.google.gson.Gson;
 
 public class AddressConverter {
-    static Gson gson = new Gson();
+    private static Gson gson = new Gson();
 
     @TypeConverter
     public static Address toAddress(String addressAsJson) {

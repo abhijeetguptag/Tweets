@@ -18,7 +18,7 @@ import java.util.List;
 public class AuthorListAdapter extends BaseAdapter<AuthorListAdapter.AuthorViewHolder, Author> {
 
     private final AuthorListCallBack articleListCallback;
-    private List<Author> authorList;
+    private List authorList;
 
     public AuthorListAdapter(@NonNull AuthorListCallBack articleListCallback) {
         authorList = new ArrayList<>();
@@ -33,7 +33,7 @@ public class AuthorListAdapter extends BaseAdapter<AuthorListAdapter.AuthorViewH
 
     @Override
     public void onBindViewHolder(@NonNull AuthorViewHolder viewHolder, int i) {
-        viewHolder.onBind(authorList.get(i));
+        viewHolder.onBind((Author) authorList.get(i));
     }
 
     @Override
