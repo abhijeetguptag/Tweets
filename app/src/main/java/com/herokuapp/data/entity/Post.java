@@ -1,36 +1,57 @@
 package com.herokuapp.data.entity;
 
-import androidx.annotation.NonNull;
-import androidx.room.Entity;
-import androidx.room.PrimaryKey;
+import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.PrimaryKey;
+import android.os.Parcel;
+import android.os.Parcelable;
+import android.support.annotation.NonNull;
+
 
 import com.google.gson.annotations.SerializedName;
 
 
+
 @Entity(tableName = "posts")
-public class Post {
+public class Post implements Parcelable {
 
+    public static final Creator<Post> CREATOR = new Creator<Post>() {
+        @Override
+        public Post createFromParcel(Parcel in) {
+            return new Post(in);
+        }
 
-
+        @Override
+        public Post[] newArray(int size) {
+            return new Post[size];
+        }
+    };
     @PrimaryKey
     @SerializedName("id")
     @NonNull
     private String id;
-
     @SerializedName("title")
     private String title;
-
     @SerializedName("authorId")
     private String authorId;
-
     @SerializedName("body")
     private String body;
-
     @SerializedName("date")
     private String date;
-
     @SerializedName("imageUrl")
     private String imageUrl;
+
+    public Post() {
+
+    }
+
+    protected Post(@NonNull Parcel in) {
+        id = in.readString();
+        title = in.readString();
+        authorId = in.readString();
+        body = in.readString();
+        date = in.readString();
+        imageUrl = in.readString();
+    }
 
     @NonNull
     public String getId() {
@@ -66,7 +87,7 @@ public class Post {
     }
 
     public String getDate() {
-        return date;
+       return date;
     }
 
     public void setDate(String date) {
@@ -82,4 +103,18 @@ public class Post {
     }
 
 
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(id);
+        dest.writeString(title);
+        dest.writeString(authorId);
+        dest.writeString(body);
+        dest.writeString(date);
+        dest.writeString(imageUrl);
+    }
 }

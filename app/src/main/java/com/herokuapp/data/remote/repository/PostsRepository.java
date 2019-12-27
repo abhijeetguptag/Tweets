@@ -1,14 +1,14 @@
 package com.herokuapp.data.remote.repository;
 
-import androidx.annotation.NonNull;
-import androidx.lifecycle.LiveData;
+
+import android.arch.lifecycle.LiveData;
+import android.support.annotation.NonNull;
 
 import com.herokuapp.data.entity.Post;
 import com.herokuapp.data.local.EntityDao;
 import com.herokuapp.data.remote.ApiService;
-import com.herokuapp.data.remote.NetworkBoundResource;
+import com.herokuapp.data.remote.networkboundResources.NetworkBoundResource;
 import com.herokuapp.data.remote.Resource;
-import com.herokuapp.data.remote.response.PostsResponse;
 
 import java.util.List;
 
@@ -28,25 +28,25 @@ public class PostsRepository {
     }
 
 
-    public LiveData<Resource<List<Post>>> loadPostAssociatedWithAuthor(String authorId, int howfarback) {
-        return new NetworkBoundResource<List<Post>, PostsResponse>() {
+    public LiveData<Resource<List<Post>>> loadPostAssociatedWithAuthor(String authorId, int pageNo) {
+        return new NetworkBoundResource<List<Post>, List<Post>>() {
 
             @Override
-            protected void saveCallResult(PostsResponse posts) {
+            protected void saveCallResult(List<Post> posts) {
                 if (null != posts)
-                    articleDao.savePosts(posts.getPosts());
+                    articleDao.savePosts(posts);
             }
 
             @NonNull
             @Override
             protected LiveData<List<Post>> loadFromDb() {
-                return articleDao.loadPosts();
+                return articleDao.loadPostsAssociatedWithAuthor(authorId);
             }
 
             @NonNull
             @Override
-            protected Call<PostsResponse> createCall() {
-                return apiService.fetchPosts(authorId,howfarback);
+            protected Call<List<Post>> createCall() {
+                return apiService.fetchPosts(authorId, pageNo);
             }
         }.getAsLiveData();
     }

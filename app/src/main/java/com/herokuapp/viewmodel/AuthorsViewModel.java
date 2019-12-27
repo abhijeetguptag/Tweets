@@ -1,7 +1,7 @@
 package com.herokuapp.viewmodel;
 
-import androidx.lifecycle.LiveData;
-import androidx.lifecycle.ViewModel;
+import android.arch.lifecycle.LiveData;
+import android.arch.lifecycle.ViewModel;
 
 import com.herokuapp.data.entity.Author;
 import com.herokuapp.data.remote.Resource;
@@ -13,15 +13,15 @@ import javax.inject.Inject;
 
 public class AuthorsViewModel extends ViewModel {
 
-    private final LiveData<Resource<List<Author>>> authorList;
+    private final AuthorsRepository authorsRepository;
 
     @Inject
     public AuthorsViewModel(AuthorsRepository authorsRepository) {
-        authorList = authorsRepository.loadAuthors(1);
+        this.authorsRepository=authorsRepository;
     }
 
-    public LiveData<Resource<List<Author>>> getAuthorList() {
-        return authorList;
+    public LiveData<Resource<List<Author>>> getAuthorList(int totalCount) {
+        return authorsRepository.loadAuthors(totalCount);
     }
 
 }

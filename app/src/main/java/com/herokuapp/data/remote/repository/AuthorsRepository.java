@@ -1,15 +1,16 @@
 package com.herokuapp.data.remote.repository;
 
-import androidx.annotation.NonNull;
-import androidx.lifecycle.LiveData;
+import android.arch.lifecycle.LiveData;
+import android.support.annotation.NonNull;
 
 import com.herokuapp.data.entity.Author;
 import com.herokuapp.data.local.EntityDao;
+import com.herokuapp.data.remote.ApiConstants;
 import com.herokuapp.data.remote.ApiService;
-import com.herokuapp.data.remote.NetworkBoundResource;
+import com.herokuapp.data.remote.networkboundResources.NetworkBoundResource;
 import com.herokuapp.data.remote.Resource;
-import com.herokuapp.data.remote.response.AuthorsResponse;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -20,6 +21,7 @@ public class AuthorsRepository {
     private final EntityDao articleDao;
     private final ApiService apiService;
 
+
     @Inject
     AuthorsRepository(EntityDao dao, ApiService service) {
         this.articleDao = dao;
@@ -27,13 +29,14 @@ public class AuthorsRepository {
     }
 
 
-    public LiveData<Resource<List<Author>>> loadAuthors(int howfarback) {
-        return new NetworkBoundResource<List<Author>, AuthorsResponse>() {
+    public LiveData<Resource<List<Author>>> loadAuthors(int pageNo) {
+        return new NetworkBoundResource<List<Author>, List<Author>>() {
+
 
             @Override
-            protected void saveCallResult(AuthorsResponse item) {
+            protected void saveCallResult(List<Author> item) {
                 if (null != item)
-                    articleDao.saveAuthorList(item.getAuthors());
+                    articleDao.saveAuthorList(item);
             }
 
             @NonNull
@@ -44,24 +47,10 @@ public class AuthorsRepository {
 
             @NonNull
             @Override
-            protected Call<AuthorsResponse> createCall() {
-                return apiService.fetchAuthor(howfarback);
+            protected Call<List<Author>> createCall() {
+                    return apiService.fetchAuthor(pageNo);
             }
+
         }.getAsLiveData();
     }
-
-
-//        @SuppressLint("CheckResult")
-//        public void loadAuthorDetail(String url, AuthorClickListener responseListener) {
-//            Author author = new Author();
-//            Observable.fromCallable(() -> {
-//                author.setId();
-//                return false;
-//            }).subscribeOn(Schedulers.io())
-//                    .observeOn(AndroidSchedulers.mainThread())
-//                    .subscribe(result -> responseListener.onSuccess(author),
-//                            (error -> responseListener.onFailure(error.getMessage())));
-//
-//        }
-
 }

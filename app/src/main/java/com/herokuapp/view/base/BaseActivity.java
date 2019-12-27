@@ -1,13 +1,12 @@
 package com.herokuapp.view.base;
 
+import android.databinding.DataBindingUtil;
+import android.databinding.ViewDataBinding;
 import android.os.Bundle;
-
-import androidx.annotation.LayoutRes;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.databinding.DataBindingUtil;
-import androidx.databinding.ViewDataBinding;
-import androidx.fragment.app.Fragment;
+import android.support.annotation.LayoutRes;
+import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
+import android.support.v7.app.AppCompatActivity;
 
 import javax.inject.Inject;
 
@@ -20,7 +19,7 @@ public abstract class BaseActivity<D extends ViewDataBinding> extends AppCompatA
     @SuppressWarnings("unused")
     public D dataBinding;
     @Inject
-    DispatchingAndroidInjector<Fragment> fragmentAndroidInjector;
+    protected DispatchingAndroidInjector<Fragment> fragmentAndroidInjector;
 
     @LayoutRes
     protected abstract int getLayoutRes();

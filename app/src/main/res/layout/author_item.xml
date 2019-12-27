@@ -1,16 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="@dimen/size_110dp"
-    android:layout_margin="@dimen/size_10dp"
-    android:orientation="vertical">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <androidx.cardview.widget.CardView
+    <data>
+
+        <variable
+            name="author"
+            type="com.herokuapp.data.entity.Author" />
+    </data>
+
+    <android.support.v7.widget.CardView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:elevation="@dimen/size_10dp"
+        android:layout_height="@dimen/size_110dp"
         android:layout_margin="@dimen/size_10dp"
+        android:elevation="@dimen/size_10dp"
         app:cardBackgroundColor="@android:color/white">
 
         <RelativeLayout
@@ -18,42 +21,55 @@
             android:layout_height="match_parent">
 
             <ImageView
-                android:id="@+id/ivAuthor"
+                android:id="@+id/ivAuthor_item"
                 android:layout_width="@dimen/size_40dp"
                 android:layout_height="@dimen/size_40dp"
                 android:layout_centerVertical="true"
                 android:layout_marginStart="@dimen/size_20dp"
-                android:background="@drawable/img"
                 android:contentDescription="@null"
-                />
+                app:avatarUrl="@{author.avatarUrl}" />
+
             <RelativeLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_toEndOf="@+id/ivAuthor"
                 android:layout_centerVertical="true"
-                android:layout_marginStart="@dimen/size_50dp">
+                android:layout_marginStart="@dimen/size_50dp"
+                android:layout_toEndOf="@+id/ivAuthor_item">
 
                 <TextView
-                    android:id="@+id/tvAuthorName"
+                    android:id="@+id/tvAuthorName_item"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="left"
+                    android:layout_gravity="start"
                     android:layout_marginTop="@dimen/size_10dp"
+                    android:text="@{author.name}"
                     android:textColor="@android:color/black"
                     android:textSize="@dimen/size_20sp"
                     android:textStyle="bold" />
+
                 <TextView
-                    android:id="@+id/tvUserName"
+                    android:id="@+id/tvUserName_item"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/tvAuthorName"
-                    android:text="User Name: Myrtie_Heller51"
+                    android:layout_below="@+id/tvAuthorName_item"
                     android:layout_marginTop="@dimen/size_10dp"
+                    android:text="@{author.userName}"
                     android:textColor="@android:color/darker_gray"
-                    android:textSize="@dimen/size_15sp"
+                    android:textSize="@dimen/size_14sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/tvUserEmail_item"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/tvUserName_item"
+                    android:layout_marginTop="@dimen/size_10dp"
+                    android:text="@{author.email}"
+                    android:textColor="@android:color/darker_gray"
+                    android:textSize="@dimen/size_14sp"
                     android:textStyle="bold" />
             </RelativeLayout>
         </RelativeLayout>
-    </androidx.cardview.widget.CardView>
+    </android.support.v7.widget.CardView>
 
-</RelativeLayout>
+</layout>

@@ -1,17 +1,18 @@
-package com.herokuapp.data.remote;
+package com.herokuapp.data.remote.networkboundResources;
 
 import android.annotation.SuppressLint;
+import android.arch.lifecycle.LiveData;
+import android.arch.lifecycle.MediatorLiveData;
 import android.os.AsyncTask;
+import android.support.annotation.MainThread;
+import android.support.annotation.NonNull;
+import android.support.annotation.WorkerThread;
 
-import androidx.annotation.MainThread;
-import androidx.annotation.NonNull;
-import androidx.annotation.WorkerThread;
-import androidx.lifecycle.LiveData;
-import androidx.lifecycle.MediatorLiveData;
 
 import com.google.gson.stream.MalformedJsonException;
 import com.herokuapp.HerokuApp;
 import com.herokuapp.R;
+import com.herokuapp.data.remote.Resource;
 
 import java.io.IOException;
 import java.net.SocketTimeoutException;
@@ -25,11 +26,13 @@ public abstract class NetworkBoundResource<T, V> {
 
     private final MediatorLiveData<Resource<T>> result = new MediatorLiveData<>();
 
+    private String totalCount;
+
     @MainThread
     protected NetworkBoundResource() {
         result.setValue(Resource.loading(null));
 
-        // Always load the data from DB intially so that we have
+        // Always load the data from DB initially so that we have
         LiveData<T> dbSource = loadFromDb();
 
         // Fetch the data from network and add it to the resource
@@ -47,7 +50,7 @@ public abstract class NetworkBoundResource<T, V> {
     }
 
     /**
-     * This method fetches the data from remoted service and save it to local db
+     * This method fetches the data from remote service and save it to local db
      *
      * @param dbSource - Database source
      */
@@ -56,6 +59,7 @@ public abstract class NetworkBoundResource<T, V> {
         createCall().enqueue(new Callback<V>() {
             @Override
             public void onResponse(@NonNull Call<V> call, @NonNull Response<V> response) {
+                totalCount = response.headers().get("X-Total-Count");
                 result.removeSource(dbSource);
                 saveResultAndReInit(response.body());
             }
@@ -98,8 +102,16 @@ public abstract class NetworkBoundResource<T, V> {
             @Override
             protected void onPostExecute(Void aVoid) {
                 result.addSource(loadFromDb(), newData -> {
-                    if (null != newData)
-                        result.setValue(Resource.success(newData));
+                    if (null != newData) {
+                        int maxCount;
+                        try{
+                            maxCount = Integer.parseInt(totalCount);
+                            result.setValue(Resource.success(newData, maxCount));
+                        }catch (NumberFormatException exeception){
+                            result.setValue(Resource.success(newData));
+                        }
+
+                    }
                 });
             }
         }.execute();

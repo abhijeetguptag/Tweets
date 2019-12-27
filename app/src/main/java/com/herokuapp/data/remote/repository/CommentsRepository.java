@@ -1,14 +1,14 @@
 package com.herokuapp.data.remote.repository;
 
-import androidx.annotation.NonNull;
-import androidx.lifecycle.LiveData;
+
+import android.arch.lifecycle.LiveData;
+import android.support.annotation.NonNull;
 
 import com.herokuapp.data.entity.Comments;
 import com.herokuapp.data.local.EntityDao;
 import com.herokuapp.data.remote.ApiService;
-import com.herokuapp.data.remote.NetworkBoundResource;
+import com.herokuapp.data.remote.networkboundResources.NetworkBoundResource;
 import com.herokuapp.data.remote.Resource;
-import com.herokuapp.data.remote.response.PostsResponse;
 
 import java.util.List;
 
@@ -27,25 +27,25 @@ public class CommentsRepository {
     }
 
 
-    public LiveData<Resource<List<Comments>>> loadCommentAssociatedWithPost(String authorId, int howfarback) {
-        return new NetworkBoundResource<List<Comments>, PostsResponse>() {
+    public LiveData<Resource<List<Comments>>> loadCommentAssociatedWithPost(String postId, int howfarback) {
+        return new NetworkBoundResource<List<Comments>, List<Comments>>() {
 
             @Override
-            protected void saveCallResult(PostsResponse posts) {
-                if (null != posts)
-                    articleDao.savePosts(posts.getPosts());
+            protected void saveCallResult(List<Comments> comments) {
+                if (null != comments)
+                    articleDao.saveComments(comments);
             }
 
             @NonNull
             @Override
             protected LiveData<List<Comments>> loadFromDb() {
-                return articleDao.fetchComments();
+                return articleDao.loadCommentsAssociatedWithPost(postId);
             }
 
             @NonNull
             @Override
-            protected Call<PostsResponse> createCall() {
-                return apiService.fetchPosts(authorId, howfarback);
+            protected Call <List<Comments> >createCall() {
+                return apiService.fetchComments(postId, howfarback);
             }
         }.getAsLiveData();
     }
