@@ -11,7 +11,7 @@ import android.widget.Filterable;
 
 import com.herokuapp.data.entity.Post;
 import com.herokuapp.databinding.PostItemBinding;
-import com.herokuapp.view.PostsClickListener;
+import com.herokuapp.view.adapter.listevents.PostsClickListener;
 import com.herokuapp.view.base.BaseAdapter;
 
 import java.util.ArrayList;

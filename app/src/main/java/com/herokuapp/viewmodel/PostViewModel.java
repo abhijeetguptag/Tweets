@@ -22,7 +22,7 @@ public class PostViewModel extends ViewModel {
         this.postsRepository = postsRepository;
     }
 
-    public LiveData<Resource<List<Post>>> getPost(String authorId) {
-        return postsRepository.loadPostAssociatedWithAuthor(authorId, 1);
+    public LiveData<Resource<List<Post>>> getPost(String authorId, int pageNo) {
+        return postsRepository.loadPostAssociatedWithAuthor(authorId, pageNo);
     }
 }

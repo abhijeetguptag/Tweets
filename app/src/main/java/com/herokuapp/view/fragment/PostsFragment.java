@@ -15,12 +15,15 @@ import com.herokuapp.data.entity.Author;
 import com.herokuapp.data.entity.Post;
 import com.herokuapp.data.remote.Status;
 import com.herokuapp.databinding.PostListBinding;
-import com.herokuapp.view.PostsClickListener;
+import com.herokuapp.view.adapter.listevents.PostsClickListener;
 import com.herokuapp.view.adapter.PostListAdapter;
 import com.herokuapp.view.base.BaseFragment;
+import com.herokuapp.view.base.EndlessRecyclerOnScrollListener;
 import com.herokuapp.viewmodel.PostViewModel;
 
 public class PostsFragment extends BaseFragment<PostViewModel, PostListBinding> implements PostsClickListener {
+
+    private String authorId;
 
     public static PostsFragment newInstance() {
         Bundle args = new Bundle();
@@ -54,7 +57,7 @@ public class PostsFragment extends BaseFragment<PostViewModel, PostListBinding> 
         if (null != getActivity()) {
             Bundle args = new Bundle();
             args.putParcelable(FragmentUtils.POST_KEY, post);
-            CommentFragment detailFragment = new CommentFragment();
+            CommentFragment detailFragment = CommentFragment.newInstance();
             detailFragment.setArguments(args);
             FragmentUtils.replaceFragment((AppCompatActivity) getActivity(), detailFragment, R.id.fragContainer, true);
         }
@@ -69,21 +72,38 @@ public class PostsFragment extends BaseFragment<PostViewModel, PostListBinding> 
         if (bundle != null) {
             Author author = bundle.getParcelable(FragmentUtils.AUTHOR_KEY);
             if (author != null) {
-                viewModel.getPost(author.getId())
-                        .observe(this, listResource -> {
-                            if (null != listResource && (listResource.status == Status.ERROR || listResource.status == Status.SUCCESS)) {
-                                dataBinding.progressBarPost.setVisibility(View.GONE);
-                                dataBinding.errorLayoutPost.setText(listResource.getMessage());
-                            }
-                            dataBinding.setResource(listResource);
-
-                            // If the cached data is already showing then no need to show the error
-                            if (null != dataBinding.postRecyclerView.getAdapter() && dataBinding.postRecyclerView.getAdapter().getItemCount() > 0) {
-                                dataBinding.errorLayoutPost.setVisibility(View.GONE);
-                            }
-                        });
+            this.authorId= author.getId();
+                fetchData(authorId, pageNo);
             }
-
+            dataBinding.postRecyclerView.addOnScrollListener(new EndlessRecyclerOnScrollListener() {
+                @Override
+                public void onLoadMore() {
+                    int totalCount= dataBinding.postRecyclerView.getAdapter().getItemCount();
+                    if(totalCount < maxItemCount)
+                        fetchData(authorId,++pageNo);
+                }
+            });
         }
+
+    }
+
+    private void fetchData(String authorId,int pageNo) {
+        viewModel.getPost(authorId, pageNo)
+                .observe(this, listResource -> {
+                    if (null != listResource && (listResource.status == Status.ERROR || listResource.status == Status.SUCCESS)) {
+                        maxItemCount =listResource.totalDataAvailable;
+                        dataBinding.progressBarPost.setVisibility(View.GONE);
+                        dataBinding.errorLayoutPost.setText(listResource.getMessage());
+                    }
+                    dataBinding.setResource(listResource);
+
+                    // If the cached data is already showing then no need to show the error
+                    if (null != dataBinding.postRecyclerView.getAdapter() && dataBinding.postRecyclerView.getAdapter().getItemCount() > 0) {
+                        dataBinding.errorLayoutPost.setVisibility(View.GONE);
+                    }
+
+                    if(null != listResource && listResource.status == Status.ERROR)
+                        showToastMessage(listResource.getMessage());
+                });
     }
 }

@@ -7,7 +7,7 @@ import android.support.annotation.NonNull;
 import com.herokuapp.data.entity.Comments;
 import com.herokuapp.data.local.EntityDao;
 import com.herokuapp.data.remote.ApiService;
-import com.herokuapp.data.remote.NetworkBoundResource;
+import com.herokuapp.data.remote.networkboundResources.NetworkBoundResource;
 import com.herokuapp.data.remote.Resource;
 
 import java.util.List;
@@ -39,24 +39,13 @@ public class CommentsRepository {
             @NonNull
             @Override
             protected LiveData<List<Comments>> loadFromDb() {
-                return articleDao.fetchComments();
+                return articleDao.loadCommentsAssociatedWithPost(postId);
             }
 
             @NonNull
             @Override
             protected Call <List<Comments> >createCall() {
                 return apiService.fetchComments(postId, howfarback);
-            }
-
-
-            @Override
-            protected void nextPageURL(String nextPageURL) {
-
-            }
-
-            @Override
-            protected void previousPageURL(String previousPageURL) {
-
             }
         }.getAsLiveData();
     }

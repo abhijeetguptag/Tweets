@@ -20,8 +20,8 @@ public class AuthorsViewModel extends ViewModel {
         this.authorsRepository=authorsRepository;
     }
 
-    public LiveData<Resource<List<Author>>> getAuthorList(int pageNo) {
-        return authorsRepository.loadAuthors(pageNo);
+    public LiveData<Resource<List<Author>>> getAuthorList(int totalCount) {
+        return authorsRepository.loadAuthors(totalCount);
     }
 
 }

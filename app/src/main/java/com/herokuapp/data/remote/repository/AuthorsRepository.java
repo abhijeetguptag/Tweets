@@ -5,9 +5,12 @@ import android.support.annotation.NonNull;
 
 import com.herokuapp.data.entity.Author;
 import com.herokuapp.data.local.EntityDao;
+import com.herokuapp.data.remote.ApiConstants;
 import com.herokuapp.data.remote.ApiService;
-import com.herokuapp.data.remote.NetworkBoundResource;
+import com.herokuapp.data.remote.networkboundResources.NetworkBoundResource;
 import com.herokuapp.data.remote.Resource;
+
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -29,6 +32,7 @@ public class AuthorsRepository {
     public LiveData<Resource<List<Author>>> loadAuthors(int pageNo) {
         return new NetworkBoundResource<List<Author>, List<Author>>() {
 
+
             @Override
             protected void saveCallResult(List<Author> item) {
                 if (null != item)
@@ -44,22 +48,8 @@ public class AuthorsRepository {
             @NonNull
             @Override
             protected Call<List<Author>> createCall() {
-                return apiService.fetchAuthor(pageNo);
+                    return apiService.fetchAuthor(pageNo);
             }
-
-
-            @Override
-            protected void nextPageURL(@NonNull String nextPageURL) {
-
-            }
-
-            @Override
-            protected void previousPageURL(@NonNull String previousPageURL) {
-
-            }
-
-
-
 
         }.getAsLiveData();
     }

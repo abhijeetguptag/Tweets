@@ -14,12 +14,15 @@ import com.herokuapp.R;
 import com.herokuapp.data.entity.Author;
 import com.herokuapp.data.remote.Status;
 import com.herokuapp.databinding.AuthorListBinding;
-import com.herokuapp.view.AuthorListCallBack;
+import com.herokuapp.view.adapter.listevents.AuthorListCallBack;
 import com.herokuapp.view.adapter.AuthorListAdapter;
 import com.herokuapp.view.base.BaseFragment;
+import com.herokuapp.view.base.EndlessRecyclerOnScrollListener;
 import com.herokuapp.viewmodel.AuthorsViewModel;
 
 public class AuthorFragment extends BaseFragment<AuthorsViewModel, AuthorListBinding> implements AuthorListCallBack {
+
+
 
     public static AuthorFragment newInstance() {
         Bundle args = new Bundle();
@@ -63,9 +66,23 @@ public class AuthorFragment extends BaseFragment<AuthorsViewModel, AuthorListBin
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        viewModel.getAuthorList(1)
+        fetchData(pageNo);
+        dataBinding.authorRecyclerView.addOnScrollListener(new EndlessRecyclerOnScrollListener() {
+            @Override
+            public void onLoadMore() {
+                int totalCount= dataBinding.authorRecyclerView.getAdapter().getItemCount();
+                if(totalCount < maxItemCount)
+                fetchData(++pageNo);
+            }
+        });
+
+    }
+
+    private void fetchData(int pageNo){
+        viewModel.getAuthorList(pageNo)
                 .observe(this, listResource -> {
                     if (null != listResource && (listResource.status == Status.ERROR || listResource.status == Status.SUCCESS)) {
+                        maxItemCount =listResource.totalDataAvailable;
                         dataBinding.progressBarAuthor.setVisibility(View.GONE);
                         dataBinding.errorLayoutAuthor.setText(listResource.getMessage());
                     }
@@ -75,7 +92,9 @@ public class AuthorFragment extends BaseFragment<AuthorsViewModel, AuthorListBin
                     if (null != dataBinding.authorRecyclerView.getAdapter() && dataBinding.authorRecyclerView.getAdapter().getItemCount() > 0) {
                         dataBinding.errorLayoutAuthor.setVisibility(View.GONE);
                     }
-                });
 
+                    if(null != listResource && listResource.status == Status.ERROR)
+                        showToastMessage(listResource.getMessage());
+                });
     }
 }

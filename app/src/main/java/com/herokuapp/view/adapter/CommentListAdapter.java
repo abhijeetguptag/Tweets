@@ -10,7 +10,7 @@ import android.widget.Filterable;
 
 import com.herokuapp.data.entity.Comments;
 import com.herokuapp.databinding.CommentItemBinding;
-import com.herokuapp.view.CommentListClickCallBack;
+import com.herokuapp.view.adapter.listevents.CommentListClickCallBack;
 import com.herokuapp.view.base.BaseAdapter;
 
 import java.util.ArrayList;

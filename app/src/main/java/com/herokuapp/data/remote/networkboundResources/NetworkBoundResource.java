@@ -1,4 +1,4 @@
-package com.herokuapp.data.remote;
+package com.herokuapp.data.remote.networkboundResources;
 
 import android.annotation.SuppressLint;
 import android.arch.lifecycle.LiveData;
@@ -12,6 +12,7 @@ import android.support.annotation.WorkerThread;
 import com.google.gson.stream.MalformedJsonException;
 import com.herokuapp.HerokuApp;
 import com.herokuapp.R;
+import com.herokuapp.data.remote.Resource;
 
 import java.io.IOException;
 import java.net.SocketTimeoutException;
@@ -24,6 +25,8 @@ import retrofit2.Response;
 public abstract class NetworkBoundResource<T, V> {
 
     private final MediatorLiveData<Resource<T>> result = new MediatorLiveData<>();
+
+    private String totalCount;
 
     @MainThread
     protected NetworkBoundResource() {
@@ -56,7 +59,7 @@ public abstract class NetworkBoundResource<T, V> {
         createCall().enqueue(new Callback<V>() {
             @Override
             public void onResponse(@NonNull Call<V> call, @NonNull Response<V> response) {
-                String linkHeader = response.headers().get("Link");
+                totalCount = response.headers().get("X-Total-Count");
                 result.removeSource(dbSource);
                 saveResultAndReInit(response.body());
             }
@@ -99,8 +102,16 @@ public abstract class NetworkBoundResource<T, V> {
             @Override
             protected void onPostExecute(Void aVoid) {
                 result.addSource(loadFromDb(), newData -> {
-                    if (null != newData)
-                        result.setValue(Resource.success(newData));
+                    if (null != newData) {
+                        int maxCount;
+                        try{
+                            maxCount = Integer.parseInt(totalCount);
+                            result.setValue(Resource.success(newData, maxCount));
+                        }catch (NumberFormatException exeception){
+                            result.setValue(Resource.success(newData));
+                        }
+
+                    }
                 });
             }
         }.execute();
@@ -121,13 +132,6 @@ public abstract class NetworkBoundResource<T, V> {
     @NonNull
     @MainThread
     protected abstract Call<V> createCall();
-
-
-    @MainThread
-    protected abstract void nextPageURL(@NonNull String nextPageURL);
-
-    @MainThread
-    protected abstract void previousPageURL(@NonNull String previousPageURL);
 
     public final LiveData<Resource<T>> getAsLiveData() {
         return result;

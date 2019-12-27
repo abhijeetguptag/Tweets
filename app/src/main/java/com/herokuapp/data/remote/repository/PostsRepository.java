@@ -7,7 +7,7 @@ import android.support.annotation.NonNull;
 import com.herokuapp.data.entity.Post;
 import com.herokuapp.data.local.EntityDao;
 import com.herokuapp.data.remote.ApiService;
-import com.herokuapp.data.remote.NetworkBoundResource;
+import com.herokuapp.data.remote.networkboundResources.NetworkBoundResource;
 import com.herokuapp.data.remote.Resource;
 
 import java.util.List;
@@ -40,23 +40,13 @@ public class PostsRepository {
             @NonNull
             @Override
             protected LiveData<List<Post>> loadFromDb() {
-                return articleDao.loadPosts();
+                return articleDao.loadPostsAssociatedWithAuthor(authorId);
             }
 
             @NonNull
             @Override
             protected Call<List<Post>> createCall() {
                 return apiService.fetchPosts(authorId, pageNo);
-            }
-
-            @Override
-            protected void nextPageURL(String nextPageURL) {
-
-            }
-
-            @Override
-            protected void previousPageURL(String previousPageURL) {
-
             }
         }.getAsLiveData();
     }

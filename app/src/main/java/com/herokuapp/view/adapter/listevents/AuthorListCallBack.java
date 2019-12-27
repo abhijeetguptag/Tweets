@@ -1,4 +1,4 @@
-package com.herokuapp.view;
+package com.herokuapp.view.adapter.listevents;
 
 import com.herokuapp.data.entity.Author;
 

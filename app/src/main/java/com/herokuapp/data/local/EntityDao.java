@@ -21,15 +21,15 @@ public interface EntityDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void saveAuthorList(List<Author> authors);
 
-    @Query("SELECT * FROM comments ")
-    LiveData<List<Comments>> fetchComments();
-
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void saveComments(List<Comments> comments);
 
-    @Query("SELECT * FROM posts")
-    LiveData<List<Post>> loadPosts();
-
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void savePosts(List<Post> post);
+
+    @Query("SELECT * FROM posts where authorId Like :authorId")
+    LiveData<List<Post>> loadPostsAssociatedWithAuthor(String authorId);
+
+    @Query("SELECT * FROM comments where postId Like :postId")
+    LiveData<List<Comments>> loadCommentsAssociatedWithPost(String postId);
 }
