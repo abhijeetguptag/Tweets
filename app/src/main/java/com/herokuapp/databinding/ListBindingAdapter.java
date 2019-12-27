@@ -1,7 +1,6 @@
 package com.herokuapp.databinding;
 
 
-
 import android.databinding.BindingAdapter;
 import android.support.v7.widget.RecyclerView;
 

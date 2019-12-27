@@ -17,7 +17,7 @@ public class AuthorsViewModel extends ViewModel {
 
     @Inject
     public AuthorsViewModel(AuthorsRepository authorsRepository) {
-        this.authorsRepository=authorsRepository;
+        this.authorsRepository = authorsRepository;
     }
 
     public LiveData<Resource<List<Author>>> getAuthorList(int totalCount) {

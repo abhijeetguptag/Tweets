@@ -7,8 +7,8 @@ import android.support.annotation.NonNull;
 import com.herokuapp.data.entity.Post;
 import com.herokuapp.data.local.EntityDao;
 import com.herokuapp.data.remote.ApiService;
-import com.herokuapp.data.remote.networkboundResources.NetworkBoundResource;
 import com.herokuapp.data.remote.Resource;
+import com.herokuapp.data.remote.networkboundResources.NetworkBoundResource;
 
 import java.util.List;
 

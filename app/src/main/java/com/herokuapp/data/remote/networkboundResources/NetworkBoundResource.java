@@ -8,7 +8,6 @@ import android.support.annotation.MainThread;
 import android.support.annotation.NonNull;
 import android.support.annotation.WorkerThread;
 
-
 import com.google.gson.stream.MalformedJsonException;
 import com.herokuapp.HerokuApp;
 import com.herokuapp.R;
@@ -104,10 +103,10 @@ public abstract class NetworkBoundResource<T, V> {
                 result.addSource(loadFromDb(), newData -> {
                     if (null != newData) {
                         int maxCount;
-                        try{
+                        try {
                             maxCount = Integer.parseInt(totalCount);
                             result.setValue(Resource.success(newData, maxCount));
-                        }catch (NumberFormatException exeception){
+                        } catch (NumberFormatException exeception) {
                             result.setValue(Resource.success(newData));
                         }
 

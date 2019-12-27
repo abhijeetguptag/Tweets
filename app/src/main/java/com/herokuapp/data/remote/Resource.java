@@ -21,28 +21,28 @@ public class Resource<T> {
         this.status = status;
         this.data = data;
         this.message = message;
-        this.totalDataAvailable=totalDataAvailable;
+        this.totalDataAvailable = totalDataAvailable;
     }
 
-    public static <T> Resource<T> success(@NonNull T data ) {
-        return new Resource<>(Status.SUCCESS, data, null,0);
+    public static <T> Resource<T> success(@NonNull T data) {
+        return new Resource<>(Status.SUCCESS, data, null, 0);
     }
 
     public static <T> Resource<T> error(String msg, @Nullable T data) {
-        return new Resource<>(Status.ERROR, data, msg,0);
+        return new Resource<>(Status.ERROR, data, msg, 0);
     }
 
     public static <T> Resource<T> loading(@Nullable T data) {
-        return new Resource<>(Status.LOADING, data, null,0);
+        return new Resource<>(Status.LOADING, data, null, 0);
+    }
+
+    public static <T> Resource<T> success(@NonNull T data, int totalCount) {
+        return new Resource<>(Status.SUCCESS, data, null, totalCount);
     }
 
     @Nullable
     public String getMessage() {
         return message;
-    }
-
-    public static <T> Resource<T> success(@NonNull T data , int totalCount) {
-        return new Resource<>(Status.SUCCESS, data, null,totalCount);
     }
 
 }

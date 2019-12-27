@@ -15,7 +15,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-
 import javax.inject.Inject;
 
 import dagger.android.support.AndroidSupportInjection;
@@ -25,7 +24,7 @@ public abstract class BaseFragment<V extends ViewModel, D extends ViewDataBindin
 
     protected boolean isLoading = false;
     protected int maxItemCount;
-    protected int pageNo =1;
+    protected int pageNo = 1;
 
     protected V viewModel;
     protected D dataBinding;
@@ -51,9 +50,9 @@ public abstract class BaseFragment<V extends ViewModel, D extends ViewDataBindin
         return dataBinding.getRoot();
     }
 
-    public void showToastMessage(String message){
+    public void showToastMessage(String message) {
 
-        if(message !=null && message.length() >0) {
+        if (message != null && message.length() > 0) {
             Snackbar snackbar = Snackbar
                     .make(dataBinding.getRoot(), message, Snackbar.LENGTH_LONG);
             snackbar.show();

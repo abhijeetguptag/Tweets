@@ -3,7 +3,6 @@ package com.herokuapp.view.activity;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 
-
 import com.herokuapp.R;
 import com.herokuapp.databinding.ActivityMainBinding;
 import com.herokuapp.view.base.BaseActivity;

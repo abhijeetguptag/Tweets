@@ -5,12 +5,10 @@ import android.support.annotation.NonNull;
 
 import com.herokuapp.data.entity.Author;
 import com.herokuapp.data.local.EntityDao;
-import com.herokuapp.data.remote.ApiConstants;
 import com.herokuapp.data.remote.ApiService;
-import com.herokuapp.data.remote.networkboundResources.NetworkBoundResource;
 import com.herokuapp.data.remote.Resource;
+import com.herokuapp.data.remote.networkboundResources.NetworkBoundResource;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -48,7 +46,7 @@ public class AuthorsRepository {
             @NonNull
             @Override
             protected Call<List<Author>> createCall() {
-                    return apiService.fetchAuthor(pageNo);
+                return apiService.fetchAuthor(pageNo);
             }
 
         }.getAsLiveData();

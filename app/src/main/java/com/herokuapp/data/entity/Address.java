@@ -4,8 +4,6 @@ import android.arch.persistence.room.Entity;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-
-
 import com.google.gson.annotations.SerializedName;
 
 @Entity(tableName = "address")

@@ -9,14 +9,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-
 import com.herokuapp.R;
 import com.herokuapp.data.entity.Author;
 import com.herokuapp.data.entity.Post;
 import com.herokuapp.data.remote.Status;
 import com.herokuapp.databinding.PostListBinding;
-import com.herokuapp.view.adapter.listevents.PostsClickListener;
 import com.herokuapp.view.adapter.PostListAdapter;
+import com.herokuapp.view.adapter.listevents.PostsClickListener;
 import com.herokuapp.view.base.BaseFragment;
 import com.herokuapp.view.base.EndlessRecyclerOnScrollListener;
 import com.herokuapp.viewmodel.PostViewModel;
@@ -72,26 +71,26 @@ public class PostsFragment extends BaseFragment<PostViewModel, PostListBinding> 
         if (bundle != null) {
             Author author = bundle.getParcelable(FragmentUtils.AUTHOR_KEY);
             if (author != null) {
-            this.authorId= author.getId();
+                this.authorId = author.getId();
                 fetchData(authorId, pageNo);
             }
             dataBinding.postRecyclerView.addOnScrollListener(new EndlessRecyclerOnScrollListener() {
                 @Override
                 public void onLoadMore() {
-                    int totalCount= dataBinding.postRecyclerView.getAdapter().getItemCount();
-                    if(totalCount < maxItemCount)
-                        fetchData(authorId,++pageNo);
+                    int totalCount = dataBinding.postRecyclerView.getAdapter().getItemCount();
+                    if (totalCount < maxItemCount)
+                        fetchData(authorId, ++pageNo);
                 }
             });
         }
 
     }
 
-    private void fetchData(String authorId,int pageNo) {
+    private void fetchData(String authorId, int pageNo) {
         viewModel.getPost(authorId, pageNo)
                 .observe(this, listResource -> {
                     if (null != listResource && (listResource.status == Status.ERROR || listResource.status == Status.SUCCESS)) {
-                        maxItemCount =listResource.totalDataAvailable;
+                        maxItemCount = listResource.totalDataAvailable;
                         dataBinding.progressBarPost.setVisibility(View.GONE);
                         dataBinding.errorLayoutPost.setText(listResource.getMessage());
                     }
@@ -102,7 +101,7 @@ public class PostsFragment extends BaseFragment<PostViewModel, PostListBinding> 
                         dataBinding.errorLayoutPost.setVisibility(View.GONE);
                     }
 
-                    if(null != listResource && listResource.status == Status.ERROR)
+                    if (null != listResource && listResource.status == Status.ERROR)
                         showToastMessage(listResource.getMessage());
                 });
     }
