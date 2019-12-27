@@ -15,16 +15,14 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
 
 
-public class BindingUtilAdapter
-{
+public class BindingUtilAdapter {
 
-    private BindingUtilAdapter(){
+    private BindingUtilAdapter() {
 
     }
 
     @BindingAdapter({"avatarUrl"})
-    public static void loadImage(ImageView imageView, String url)
-    {
+    public static void loadImage(ImageView imageView, String url) {
         Picasso.get().load(url).placeholder(R.drawable.ic_broken_image_black_24dp).into(imageView);
     }
 
@@ -33,7 +31,7 @@ public class BindingUtilAdapter
         /*Parse string data and set it in another format for your textView*/
 
         textView.setText(DateTimeFormatter.ofLocalizedDateTime(FormatStyle.MEDIUM)
-                        .withZone(ZoneOffset.UTC)
-                        .format(OffsetDateTime.parse(date)));
+                .withZone(ZoneOffset.UTC)
+                .format(OffsetDateTime.parse(date)));
     }
 }

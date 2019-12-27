@@ -3,7 +3,6 @@ package com.herokuapp.di.module;
 import android.app.Application;
 import android.arch.persistence.room.Room;
 
-
 import com.herokuapp.data.local.EntityDao;
 import com.herokuapp.data.local.HeroKuDataBase;
 import com.herokuapp.data.remote.ApiConstants;

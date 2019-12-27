@@ -10,6 +10,7 @@ public class FragmentUtils {
 
     public static final String AUTHOR_KEY = "author";
     public static final String POST_KEY = "post";
+
     private FragmentUtils() {
         // Private constructor to hide the implicit one
     }

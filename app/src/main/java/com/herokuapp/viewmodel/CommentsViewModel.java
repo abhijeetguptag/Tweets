@@ -18,7 +18,7 @@ public class CommentsViewModel extends ViewModel {
 
     @Inject
     public CommentsViewModel(CommentsRepository commentsRepository) {
-        this.commentsRepository=commentsRepository;
+        this.commentsRepository = commentsRepository;
     }
 
     public LiveData<Resource<List<Comments>>> getComments(String postId, int pageNo) {

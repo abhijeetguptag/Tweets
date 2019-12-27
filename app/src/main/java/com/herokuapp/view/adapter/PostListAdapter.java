@@ -7,8 +7,6 @@ import android.view.ViewGroup;
 import android.widget.Filter;
 import android.widget.Filterable;
 
-
-
 import com.herokuapp.data.entity.Post;
 import com.herokuapp.databinding.PostItemBinding;
 import com.herokuapp.view.adapter.listevents.PostsClickListener;

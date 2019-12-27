@@ -12,7 +12,7 @@ import retrofit2.http.Query;
 
 public interface ApiService {
 
-    @GET("authors?_limit=" + ApiConstants.USER_FETCH_LIMIT )
+    @GET("authors?_limit=" + ApiConstants.USER_FETCH_LIMIT)
     Call<List<Author>> fetchAuthor(@Query("_page") int pageNo);
 
     @GET("posts?_sort=date&_order=desc&_limit=" + ApiConstants.POSTS_FETCH_LIMIT)
