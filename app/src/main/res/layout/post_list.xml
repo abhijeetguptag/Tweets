@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
@@ -10,6 +11,10 @@
             name="resource"
             type="com.herokuapp.data.remote.Resource" />
 
+        <variable
+            name="post_author"
+            type="com.herokuapp.data.entity.Author" />
+
     </data>
 
     <RelativeLayout
@@ -17,10 +22,67 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/post_author"
+            android:layout_centerHorizontal="true">
+
+            <ImageView
+                android:id="@+id/ivAuthor_item"
+                android:layout_width="@dimen/size_60dp"
+                android:layout_height="@dimen/size_60dp"
+                android:layout_centerVertical="true"
+                android:layout_margin="@dimen/size_10dp"
+                android:contentDescription="@null"
+                app:avatarUrl="@{post_author.avatarUrl}" />
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_margin="@dimen/size_10dp"
+                android:layout_toEndOf="@+id/ivAuthor_item">
+
+                <TextView
+                    android:id="@+id/tvAuthorName_item"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="start"
+                    android:text="@{post_author.name}"
+                    android:textColor="@android:color/black"
+                    android:textSize="@dimen/size_20sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/tvUserName_item"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/tvAuthorName_item"
+                    android:text="@{post_author.userName}"
+                    android:textColor="@android:color/darker_gray"
+                    android:textSize="@dimen/size_14sp"
+                    android:textStyle="bold"
+                    tools:text="@tools:sample/lorem" />
+
+                <TextView
+                    android:id="@+id/tvUserEmail_item"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/tvUserName_item"
+                    android:text="@{post_author.email}"
+                    android:textColor="@android:color/darker_gray"
+                    android:textSize="@dimen/size_14sp"
+                    android:textStyle="bold"/>
+            </RelativeLayout>
+        </RelativeLayout>
 
         <include
             android:id="@+id/progressBar_post"
-            layout="@layout/progress_bar" />
+            layout="@layout/progress_bar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/post_author"/>
 
         <TextView
             android:id="@+id/error_layout_post"
@@ -31,7 +93,7 @@
             android:orientation="vertical"
             android:text="@{resource.message}"
             android:textSize="16sp"
-            android:textStyle="bold"/>
+            android:textStyle="bold" />
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/postRecyclerView"

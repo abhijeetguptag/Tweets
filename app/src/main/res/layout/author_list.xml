@@ -9,6 +9,7 @@
         <variable
             name="resource"
             type="com.herokuapp.data.remote.Resource" />
+
     </data>
 
     <RelativeLayout
@@ -29,7 +30,7 @@
             android:orientation="vertical"
             android:text="@{resource.message}"
             android:textSize="16sp"
-            android:textStyle="bold"/>
+            android:textStyle="bold" />
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/authorRecyclerView"

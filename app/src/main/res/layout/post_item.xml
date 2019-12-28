@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
@@ -12,7 +13,12 @@
     <android.support.v7.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:elevation="@dimen/size_10dp"
+        android:layout_margin="@dimen/size_10dp"
+        android:elevation= "0dp"
+        app:cardCornerRadius="10dp"
+        android:innerRadius="0dp"
+        android:shape="ring"
+        android:thicknessRatio="1.9"
         app:cardBackgroundColor="@android:color/white">
 
         <LinearLayout
@@ -23,21 +29,19 @@
 
             <TextView
                 android:id="@+id/tvPost_Title"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="start"
-                android:layout_marginTop="@dimen/size_10dp"
                 android:singleLine="true"
                 android:text="@{post.title}"
                 android:textColor="@android:color/black"
-                android:textSize="@dimen/size_20sp"
+                android:textSize="@dimen/size_18sp"
                 android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/tvPost_date"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/size_10dp"
                 android:textColor="@android:color/darker_gray"
                 android:textSize="@dimen/size_14sp"
                 android:textStyle="bold"
@@ -45,34 +49,33 @@
 
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                android:layout_marginTop="@dimen/size_10dp">
 
                 <ImageView
                     android:id="@+id/ivPost_item"
-                    android:layout_width="@dimen/size_40dp"
-                    android:layout_height="@dimen/size_40dp"
+                    android:layout_width="@dimen/size_60dp"
+                    android:layout_height="@dimen/size_60dp"
                     android:layout_centerVertical="true"
-                    android:layout_marginStart="@dimen/size_20dp"
                     android:contentDescription="@null"
+                    android:layout_marginStart="6dp"
+                    android:src="@drawable/ic_launcher_background"
                     app:avatarUrl="@{post.imageUrl}" />
 
-                <RelativeLayout
+                <TextView
+                    android:id="@+id/tvPost_body"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:layout_marginStart="@dimen/size_50dp"
-                    android:layout_toEndOf="@+id/ivPost_item">
+                    android:layout_marginStart="16dp"
+                    android:layout_toEndOf="@+id/ivPost_item"
+                    android:singleLine="false"
+                    android:text="@{post.body}"
+                    android:textColor="@android:color/black"
+                    android:textSize="@dimen/size_14sp"
+                    tools:text="sample/lorem asdsfdsfsf sadasdsadsad" />
 
-                    <TextView
-                        android:id="@+id/tvPost_body"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/size_10dp"
-                        android:singleLine="false"
-                        android:text="@{post.body}"
-                        android:textColor="@android:color/darker_gray"
-                        android:textSize="@dimen/size_14sp" />
-                </RelativeLayout>
+
+
             </RelativeLayout>
         </LinearLayout>
     </android.support.v7.widget.CardView>
