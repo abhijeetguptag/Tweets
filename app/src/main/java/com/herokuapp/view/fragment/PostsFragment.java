@@ -67,10 +67,12 @@ public class PostsFragment extends BaseFragment<PostViewModel, PostListBinding> 
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
+
         Bundle bundle = getArguments();
         if (bundle != null) {
             Author author = bundle.getParcelable(FragmentUtils.AUTHOR_KEY);
             if (author != null) {
+                dataBinding.setPostAuthor(author);
                 this.authorId = author.getId();
                 fetchData(authorId, pageNo);
             }

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
@@ -11,10 +12,14 @@
 
     <android.support.v7.widget.CardView
         android:layout_width="match_parent"
-        android:layout_height="@dimen/size_110dp"
+        android:layout_height="@dimen/size_60dp"
         android:layout_margin="@dimen/size_10dp"
-        android:elevation="@dimen/size_10dp"
-        app:cardBackgroundColor="@android:color/white">
+        android:elevation="0dp"
+        android:innerRadius="0dp"
+        android:shape="ring"
+        android:thicknessRatio="1.9"
+        app:cardBackgroundColor="@android:color/white"
+        app:cardCornerRadius="10dp">
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -25,7 +30,7 @@
                 android:layout_width="@dimen/size_40dp"
                 android:layout_height="@dimen/size_40dp"
                 android:layout_centerVertical="true"
-                android:layout_marginStart="@dimen/size_20dp"
+                android:layout_margin="@dimen/size_10dp"
                 android:contentDescription="@null"
                 app:avatarUrl="@{author.avatarUrl}" />
 
@@ -33,7 +38,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
-                android:layout_marginStart="@dimen/size_50dp"
                 android:layout_toEndOf="@+id/ivAuthor_item">
 
                 <TextView
@@ -41,7 +45,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="start"
-                    android:layout_marginTop="@dimen/size_10dp"
                     android:text="@{author.name}"
                     android:textColor="@android:color/black"
                     android:textSize="@dimen/size_20sp"
@@ -49,25 +52,14 @@
 
                 <TextView
                     android:id="@+id/tvUserName_item"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/tvAuthorName_item"
-                    android:layout_marginTop="@dimen/size_10dp"
                     android:text="@{author.userName}"
                     android:textColor="@android:color/darker_gray"
                     android:textSize="@dimen/size_14sp"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:id="@+id/tvUserEmail_item"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/tvUserName_item"
-                    android:layout_marginTop="@dimen/size_10dp"
-                    android:text="@{author.email}"
-                    android:textColor="@android:color/darker_gray"
-                    android:textSize="@dimen/size_14sp"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"
+                    tools:text="@tools:sample/lorem" />
             </RelativeLayout>
         </RelativeLayout>
     </android.support.v7.widget.CardView>
