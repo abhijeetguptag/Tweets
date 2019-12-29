@@ -1,12 +1,12 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 28
+    compileSdkVersion 29
     buildToolsVersion "29.0.2"
     defaultConfig {
         applicationId "com.herokuapp"
         minSdkVersion 26
-        targetSdkVersion 28
+        targetSdkVersion 29
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
@@ -27,20 +27,13 @@ android {
 }
 
 dependencies {
-    final SUPPORT_LIBRARY_VERSION = '28.0.0-alpha3'
-    final ARCHITECTURE_COMPONENT_VERSION = '1.1.1'
-    final RETROFIT_VERSION = '2.3.0'
-    final DAGGER_VERSION = '2.15'
-    final LOTTIE_ANDROID_VERSION = '2.5.4'
-    final ROOM_VERSION = '1.1.1'
-
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
     // Android Support Library depencies
-    implementation "com.android.support:appcompat-v7:$SUPPORT_LIBRARY_VERSION"
-    implementation "com.android.support:design:$SUPPORT_LIBRARY_VERSION"
-    implementation 'com.android.support.constraint:constraint-layout:1.1.2'
-    implementation "com.android.support:design:$SUPPORT_LIBRARY_VERSION"
+    implementation "com.android.support:appcompat-v7:28.0.0"
+    implementation "com.android.support:design:28.0.0"
+    implementation 'com.android.support.constraint:constraint-layout:1.1.3'
+    implementation "com.android.support:design:28.0.0"
 
     // Unit test dependencies
     testImplementation 'junit:junit:4.12'
@@ -48,12 +41,12 @@ dependencies {
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
 
     // Retrofit
-    implementation "com.squareup.retrofit2:retrofit:$RETROFIT_VERSION"
-    implementation "com.squareup.retrofit2:adapter-rxjava2:$RETROFIT_VERSION"
+    implementation "com.squareup.retrofit2:retrofit:2.4.0"
+    implementation "com.squareup.retrofit2:adapter-rxjava2:2.4.0"
     implementation 'com.squareup.retrofit2:converter-gson:2.4.0'
-    implementation 'com.squareup.okhttp3:logging-interceptor:3.10.0'
+    implementation 'com.squareup.okhttp3:logging-interceptor:3.11.0'
     implementation 'com.squareup.okhttp3:okhttp-urlconnection:3.6.0'
-    implementation 'com.squareup.okhttp3:logging-interceptor:3.10.0'
+    implementation 'com.squareup.okhttp3:logging-interceptor:3.11.0'
 
 
     // RxJava / RxAndroid
@@ -61,43 +54,33 @@ dependencies {
     implementation 'io.reactivex.rxjava2:rxandroid:2.0.2'
 
     // Dagger 2
-    implementation "com.google.dagger:dagger:$DAGGER_VERSION"
-    implementation "com.google.dagger:dagger-android-support:$DAGGER_VERSION"
-    annotationProcessor "com.google.dagger:dagger-compiler:$DAGGER_VERSION"
-    annotationProcessor "com.google.dagger:dagger-android-processor:$DAGGER_VERSION"
-    androidTestAnnotationProcessor "com.google.dagger:dagger-compiler:$DAGGER_VERSION"
+    implementation "com.google.dagger:dagger:2.21"
+    implementation "com.google.dagger:dagger-android-support:2.21"
+    annotationProcessor "com.google.dagger:dagger-compiler:2.21"
+    annotationProcessor "com.google.dagger:dagger-android-processor:2.21"
+    androidTestAnnotationProcessor "com.google.dagger:dagger-compiler:2.21"
 
     // Android Architecture Components
-    implementation "android.arch.lifecycle:extensions:$ARCHITECTURE_COMPONENT_VERSION"
-    implementation "android.arch.lifecycle:common-java8:$ARCHITECTURE_COMPONENT_VERSION"
-    implementation "android.arch.lifecycle:reactivestreams:$ARCHITECTURE_COMPONENT_VERSION"
-
-    //Lottie Animation view
-    implementation "com.airbnb.android:lottie:$LOTTIE_ANDROID_VERSION"
-
-    //Calligraphy for custom fonts
-    implementation 'uk.co.chrisjenx:calligraphy:2.3.0'
+    implementation "android.arch.lifecycle:extensions:1.1.1"
+    implementation "android.arch.lifecycle:common-java8:1.1.1"
+    implementation "android.arch.lifecycle:reactivestreams:1.1.1"
 
 
     // Room SQLite for data persistence
-    implementation "android.arch.persistence.room:runtime:$ROOM_VERSION"
-    annotationProcessor "android.arch.persistence.room:compiler:$ROOM_VERSION"
-
-    // Chrome custom tab
-    implementation 'com.android.support:customtabs:28.0.0-alpha3'
+    implementation "android.arch.persistence.room:runtime:1.1.1"
+    annotationProcessor "android.arch.persistence.room:compiler:1.1.1"
 
     // optional - RxJava support for Room
-    implementation "android.arch.persistence.room:rxjava2:$ROOM_VERSION"
+    implementation "android.arch.persistence.room:rxjava2:1.1.1"
 
     implementation "com.squareup.okhttp3:mockwebserver:3.8.1"
 
-    androidTestImplementation 'com.android.support:support-annotations:27.1.1'
+    androidTestImplementation 'com.android.support:support-annotations:28.0.0'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test:rules:1.0.2'
     testImplementation 'org.mockito:mockito-core:2.7.6'
 
-    implementation 'org.jsoup:jsoup:1.10.2'
-
+    // Picasso dependencies
     implementation 'com.squareup.picasso:picasso:2.71828'
 
 

@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
         <variable
             name="comment"
             type="com.herokuapp.data.entity.Comments" />
@@ -14,32 +13,32 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/size_10dp"
-        android:elevation="0dp"
-        android:innerRadius="0dp"
+        android:elevation="@dimen/size_0dp"
+        android:innerRadius="@dimen/size_0dp"
         android:shape="ring"
         android:thicknessRatio="1.9"
-        app:cardBackgroundColor="@android:color/white"
+        app:cardBackgroundColor="@color/very_lighter_gray"
         app:cardCornerRadius="@dimen/size_10dp">
 
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/size_6dp">
 
             <LinearLayout
                 android:id="@+id/userLayout"
-                android:layout_width="120dp"
+                android:layout_width="@dimen/size_120dp"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
-                android:layout_margin="@dimen/size_10dp"
                 android:orientation="vertical"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent">
 
                 <ImageView
                     android:id="@+id/ivComment_item"
-                    android:layout_width="@dimen/size_30dp"
-                    android:layout_height="@dimen/size_30dp"
+                    android:layout_width="@dimen/size_40dp"
+                    android:layout_height="@dimen/size_40dp"
                     android:layout_gravity="center_horizontal"
                     android:contentDescription="@null"
                     app:avatarUrl="@{comment.avatarUrl}" />
@@ -63,7 +62,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
                     android:gravity="center_horizontal"
-                    android:textColor="@android:color/darker_gray"
+                    android:textColor="@android:color/black"
                     android:textSize="@dimen/size_10sp"
                     android:textStyle="normal"
                     app:bindServerDate="@{comment.date}"
@@ -72,9 +71,9 @@
 
             <TextView
                 android:id="@+id/tvComment_Title"
-                android:layout_width="276dp"
+                android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_margin="@dimen/size_10dp"
+                android:layout_margin="@dimen/size_6dp"
                 android:layout_toEndOf="@+id/userLayout"
                 android:text="@{comment.body}"
                 android:textColor="@android:color/black"
