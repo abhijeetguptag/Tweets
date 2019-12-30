@@ -15,8 +15,11 @@ import java.util.List;
 @Dao
 public interface EntityDao {
 
-    @Query("SELECT * FROM authors")
-    LiveData<List<Author>> fetchAuthors();
+    @Query("SELECT * FROM authors ORDER BY id ASC LIMIT :limit OFFSET :offset")
+    LiveData<List<Author>> fetchAuthors( int limit, int offset);
+
+    @Query("SELECT COUNT(*) FROM authors")
+    LiveData<Integer> fetchAuthorsCounts();
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void saveAuthorList(List<Author> authors);
@@ -27,9 +30,9 @@ public interface EntityDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void savePosts(List<Post> post);
 
-    @Query("SELECT * FROM posts where authorId Like :authorId")
+    @Query("SELECT * FROM posts where authorId Like :authorId ORDER BY date DESC")
     LiveData<List<Post>> loadPostsAssociatedWithAuthor(String authorId);
 
-    @Query("SELECT * FROM comments where postId Like :postId")
+    @Query("SELECT * FROM comments where postId Like :postId ORDER BY date DESC ")
     LiveData<List<Comments>> loadCommentsAssociatedWithPost(String postId);
 }

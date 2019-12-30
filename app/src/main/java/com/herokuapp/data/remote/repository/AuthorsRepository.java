@@ -5,9 +5,11 @@ import android.support.annotation.NonNull;
 
 import com.herokuapp.data.entity.Author;
 import com.herokuapp.data.local.EntityDao;
+import com.herokuapp.data.remote.ApiConstants;
 import com.herokuapp.data.remote.ApiService;
 import com.herokuapp.data.remote.Resource;
 import com.herokuapp.data.remote.networkboundResources.NetworkBoundResource;
+import com.herokuapp.data.remote.repository.irepository.IAuthorsRepository;
 
 import java.util.List;
 
@@ -15,7 +17,7 @@ import javax.inject.Inject;
 
 import retrofit2.Call;
 
-public class AuthorsRepository {
+public class AuthorsRepository implements IAuthorsRepository {
     private final EntityDao articleDao;
     private final ApiService apiService;
 
@@ -27,8 +29,9 @@ public class AuthorsRepository {
     }
 
 
-    public LiveData<Resource<List<Author>>> loadAuthors(int pageNo) {
-        return new NetworkBoundResource<List<Author>, List<Author>>() {
+    @Override
+    public LiveData<Resource<List<Author>>> loadAuthors(final int pageNo) {
+        return new NetworkBoundResource<List<Author>, List<Author>>(pageNo) {
 
 
             @Override
@@ -40,7 +43,11 @@ public class AuthorsRepository {
             @NonNull
             @Override
             protected LiveData<List<Author>> loadFromDb() {
-                return articleDao.fetchAuthors();
+                int offset=0;
+                if(pageNo > 0){
+                    offset = (pageNo-1) * ApiConstants.AUTHOR_FETCH_LIMIT;
+                }
+                return articleDao.fetchAuthors(ApiConstants.AUTHOR_FETCH_LIMIT,offset);
             }
 
             @NonNull

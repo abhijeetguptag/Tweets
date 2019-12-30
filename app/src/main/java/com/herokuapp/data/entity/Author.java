@@ -26,7 +26,7 @@ public class Author implements Parcelable {
     @PrimaryKey
     @SerializedName("id")
     @NonNull
-    private String id;
+    private int id;
 
     @SerializedName("name")
     private String name;
@@ -47,7 +47,7 @@ public class Author implements Parcelable {
     }
 
     protected Author(@NonNull Parcel in) {
-        id = in.readString();
+        id = Integer.parseInt(in.readString());
         name = in.readString();
         userName = in.readString();
         email = in.readString();
@@ -55,11 +55,11 @@ public class Author implements Parcelable {
     }
 
     @NonNull
-    public String getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(@NonNull String id) {
+    public void setId(@NonNull int id) {
         this.id = id;
     }
 
@@ -110,7 +110,7 @@ public class Author implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(id);
+        dest.writeString(String.valueOf(id));
         dest.writeString(name);
         dest.writeString(userName);
         dest.writeString(email);

@@ -1,6 +1,7 @@
 package com.herokuapp.data.entity;
 
 import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.ForeignKey;
 import android.arch.persistence.room.PrimaryKey;
 import android.os.Parcel;
 import android.os.Parcelable;
@@ -29,6 +30,8 @@ public class Post implements Parcelable {
     private String id;
     @SerializedName("title")
     private String title;
+
+    @ForeignKey(entity = Author.class, parentColumns = "id", childColumns = "authorId")
     @SerializedName("authorId")
     private String authorId;
     @SerializedName("body")

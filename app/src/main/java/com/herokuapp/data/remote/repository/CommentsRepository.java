@@ -9,6 +9,7 @@ import com.herokuapp.data.local.EntityDao;
 import com.herokuapp.data.remote.ApiService;
 import com.herokuapp.data.remote.Resource;
 import com.herokuapp.data.remote.networkboundResources.NetworkBoundResource;
+import com.herokuapp.data.remote.repository.irepository.ICommentsRepository;
 
 import java.util.List;
 
@@ -16,7 +17,7 @@ import javax.inject.Inject;
 
 import retrofit2.Call;
 
-public class CommentsRepository {
+public class CommentsRepository implements ICommentsRepository {
     private final EntityDao articleDao;
     private final ApiService apiService;
 
@@ -27,8 +28,9 @@ public class CommentsRepository {
     }
 
 
-    public LiveData<Resource<List<Comments>>> loadCommentAssociatedWithPost(String postId, int howfarback) {
-        return new NetworkBoundResource<List<Comments>, List<Comments>>() {
+    @Override
+    public LiveData<Resource<List<Comments>>> loadCommentAssociatedWithPost(String postId, int pageNo) {
+        return new NetworkBoundResource<List<Comments>, List<Comments>>(pageNo) {
 
             @Override
             protected void saveCallResult(List<Comments> comments) {
@@ -45,7 +47,7 @@ public class CommentsRepository {
             @NonNull
             @Override
             protected Call<List<Comments>> createCall() {
-                return apiService.fetchComments(postId, howfarback);
+                return apiService.fetchComments(postId, pageNo);
             }
         }.getAsLiveData();
     }

@@ -28,7 +28,7 @@ public abstract class NetworkBoundResource<T, V> {
     private String totalCount;
 
     @MainThread
-    protected NetworkBoundResource() {
+    protected NetworkBoundResource(int pageNo) {
         result.setValue(Resource.loading(null));
 
         // Always load the data from DB initially so that we have

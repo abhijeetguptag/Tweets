@@ -9,6 +9,7 @@ import com.herokuapp.data.local.EntityDao;
 import com.herokuapp.data.remote.ApiService;
 import com.herokuapp.data.remote.Resource;
 import com.herokuapp.data.remote.networkboundResources.NetworkBoundResource;
+import com.herokuapp.data.remote.repository.irepository.IPostsRepository;
 
 import java.util.List;
 
@@ -16,7 +17,7 @@ import javax.inject.Inject;
 
 import retrofit2.Call;
 
-public class PostsRepository {
+public class PostsRepository implements IPostsRepository {
 
     private final EntityDao articleDao;
     private final ApiService apiService;
@@ -28,8 +29,9 @@ public class PostsRepository {
     }
 
 
+    @Override
     public LiveData<Resource<List<Post>>> loadPostAssociatedWithAuthor(String authorId, int pageNo) {
-        return new NetworkBoundResource<List<Post>, List<Post>>() {
+        return new NetworkBoundResource<List<Post>, List<Post>>(pageNo) {
 
             @Override
             protected void saveCallResult(List<Post> posts) {
