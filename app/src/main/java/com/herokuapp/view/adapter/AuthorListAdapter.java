@@ -63,7 +63,7 @@ public class AuthorListAdapter extends BaseAdapter<AuthorListAdapter.AuthorViewH
 
         private void onBind(Author authorEntity) {
             binding.setAuthor(authorEntity);
-            binding.userCount.setText(""+authorEntity.getId());
+            binding.userCount.setText("" + authorEntity.getId());
             binding.executePendingBindings();
         }
     }

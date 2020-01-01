@@ -90,7 +90,7 @@ public class AuthorFragment extends BaseFragment<AuthorsViewModel, AuthorListBin
                         dataBinding.errorLayoutAuthor.setVisibility(View.GONE);
                     }
 
-                    if (null != listResource && listResource.status == Status.ERROR){
+                    if (null != listResource && listResource.status == Status.ERROR) {
                         showToastMessage(listResource.getMessage());
                         maxItemCount = listResource.totalDataAvailable;
                     }

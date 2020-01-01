@@ -1,13 +1,13 @@
 package com.herokuapp.viewmodel;
 
-import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.ViewModel;
+
+import androidx.lifecycle.LiveData;
+import androidx.paging.PagedList;
 
 import com.herokuapp.data.entity.Author;
 import com.herokuapp.data.remote.Resource;
 import com.herokuapp.data.remote.repository.AuthorsRepository;
-
-import java.util.List;
 
 import javax.inject.Inject;
 
@@ -20,7 +20,7 @@ public class AuthorsViewModel extends ViewModel {
         this.authorsRepository = authorsRepository;
     }
 
-    public LiveData<Resource<List<Author>>> getAuthorList(int pageNo) {
+    public LiveData<Resource<PagedList<Author>>> getAuthorList(int pageNo) {
         return authorsRepository.loadAuthors(pageNo);
     }
 

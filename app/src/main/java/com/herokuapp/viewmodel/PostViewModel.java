@@ -4,11 +4,11 @@ package com.herokuapp.viewmodel;
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.ViewModel;
 
+import androidx.paging.PagedList;
+
 import com.herokuapp.data.entity.Post;
 import com.herokuapp.data.remote.Resource;
 import com.herokuapp.data.remote.repository.PostsRepository;
-
-import java.util.List;
 
 import javax.inject.Inject;
 
@@ -21,7 +21,7 @@ public class PostViewModel extends ViewModel {
         this.postsRepository = postsRepository;
     }
 
-    public LiveData<Resource<List<Post>>> getPost(String authorId, int pageNo) {
+    public LiveData<Resource<PagedList<Post>>> getPost(String authorId, int pageNo) {
         return postsRepository.loadPostAssociatedWithAuthor(authorId, pageNo);
     }
 }

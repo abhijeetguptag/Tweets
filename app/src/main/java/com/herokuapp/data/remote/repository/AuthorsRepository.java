@@ -1,7 +1,11 @@
 package com.herokuapp.data.remote.repository;
 
-import android.arch.lifecycle.LiveData;
 import android.support.annotation.NonNull;
+
+import androidx.lifecycle.LiveData;
+import androidx.paging.DataSource;
+import androidx.paging.LivePagedListBuilder;
+import androidx.paging.PagedList;
 
 import com.herokuapp.data.entity.Author;
 import com.herokuapp.data.local.EntityDao;
@@ -10,8 +14,6 @@ import com.herokuapp.data.remote.ApiService;
 import com.herokuapp.data.remote.Resource;
 import com.herokuapp.data.remote.networkboundResources.NetworkBoundResource;
 import com.herokuapp.data.remote.repository.irepository.IAuthorsRepository;
-
-import java.util.List;
 
 import javax.inject.Inject;
 
@@ -30,32 +32,34 @@ public class AuthorsRepository implements IAuthorsRepository {
 
 
     @Override
-    public LiveData<Resource<List<Author>>> loadAuthors(final int pageNo) {
-        return new NetworkBoundResource<List<Author>, List<Author>>(pageNo) {
-
+    public LiveData<Resource<PagedList<Author>>> loadAuthors(final int pageNo) {
+        return new NetworkBoundResource<PagedList<Author>, PagedList<Author>>(pageNo) {
 
             @Override
-            protected void saveCallResult(List<Author> item) {
+            protected void saveCallResult(PagedList<Author> item) {
                 if (null != item)
                     articleDao.saveAuthorList(item);
             }
 
             @NonNull
             @Override
-            protected LiveData<List<Author>> loadFromDb() {
-                int offset=0;
-                if(pageNo > 0){
-                    offset = (pageNo-1) * ApiConstants.AUTHOR_FETCH_LIMIT;
-                }
-                return articleDao.fetchAuthors(ApiConstants.AUTHOR_FETCH_LIMIT,offset);
+            protected LiveData<PagedList<Author>> loadFromDb() {
+                DataSource.Factory<Integer, Author> myConcertDataSource =
+                        articleDao.fetchAuthors();
+
+                return
+                        new LivePagedListBuilder(myConcertDataSource, ApiConstants.AUTHOR_FETCH_LIMIT).build();
+
+//                return articleDao.fetchAuthors();
             }
 
             @NonNull
             @Override
-            protected Call<List<Author>> createCall() {
+            protected Call<PagedList<Author>> createCall() {
                 return apiService.fetchAuthor(pageNo);
             }
 
         }.getAsLiveData();
     }
+
 }
