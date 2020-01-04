@@ -1,13 +1,14 @@
 package com.herokuapp.view.fragment;
 
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.LinearLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.herokuapp.R;
 import com.herokuapp.data.entity.Author;
@@ -17,12 +18,9 @@ import com.herokuapp.databinding.PostListBinding;
 import com.herokuapp.view.adapter.PostListAdapter;
 import com.herokuapp.view.adapter.listevents.PostsClickListener;
 import com.herokuapp.view.base.BaseFragment;
-import com.herokuapp.view.base.EndlessRecyclerOnScrollListener;
 import com.herokuapp.viewmodel.PostViewModel;
 
 public class PostsFragment extends BaseFragment<PostViewModel, PostListBinding> implements PostsClickListener {
-
-    private String authorId;
 
     public static PostsFragment newInstance() {
         Bundle args = new Bundle();
@@ -73,26 +71,15 @@ public class PostsFragment extends BaseFragment<PostViewModel, PostListBinding> 
             Author author = bundle.getParcelable(FragmentUtils.AUTHOR_KEY);
             if (author != null) {
                 dataBinding.setPostAuthor(author);
-                this.authorId = "" + author.getId();
-                fetchData(authorId, pageNo);
+                fetchData("" + author.getId());
             }
-            dataBinding.postRecyclerView.addOnScrollListener(new EndlessRecyclerOnScrollListener() {
-                @Override
-                public void onLoadMore() {
-                    int totalCount = dataBinding.postRecyclerView.getAdapter().getItemCount();
-                    if (totalCount < maxItemCount)
-                        fetchData(authorId, ++pageNo);
-                }
-            });
         }
-
     }
 
-    private void fetchData(String authorId, int pageNo) {
-        viewModel.getPost(authorId, pageNo)
+    private void fetchData(String authorId) {
+        viewModel.getPost(authorId)
                 .observe(this, listResource -> {
                     if (null != listResource && (listResource.status == Status.ERROR || listResource.status == Status.SUCCESS)) {
-                        maxItemCount = listResource.totalDataAvailable;
                         dataBinding.progressBarPost.setVisibility(View.GONE);
                         dataBinding.errorLayoutPost.setText(listResource.getMessage());
                     }

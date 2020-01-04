@@ -1,13 +1,11 @@
 package com.herokuapp.databinding;
 
-
-import android.databinding.BindingAdapter;
-import android.support.v7.widget.RecyclerView;
+import androidx.databinding.BindingAdapter;
+import androidx.paging.PagedList;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.herokuapp.data.remote.Resource;
 import com.herokuapp.view.base.BaseAdapter;
-
-import java.util.List;
 
 final class ListBindingAdapter {
 
@@ -26,7 +24,7 @@ final class ListBindingAdapter {
             return;
 
         if (adapter instanceof BaseAdapter) {
-            ((BaseAdapter) adapter).setData((List) resource.data);
+            ((BaseAdapter) adapter).setData((PagedList) resource.data);
         }
     }
 

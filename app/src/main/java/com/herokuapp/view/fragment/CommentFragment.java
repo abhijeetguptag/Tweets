@@ -1,12 +1,13 @@
 package com.herokuapp.view.fragment;
 
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v7.widget.LinearLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.herokuapp.R;
 import com.herokuapp.data.entity.Comments;
@@ -16,13 +17,10 @@ import com.herokuapp.databinding.CommentListBinding;
 import com.herokuapp.view.adapter.CommentListAdapter;
 import com.herokuapp.view.adapter.listevents.CommentListClickCallBack;
 import com.herokuapp.view.base.BaseFragment;
-import com.herokuapp.view.base.EndlessRecyclerOnScrollListener;
 import com.herokuapp.viewmodel.CommentsViewModel;
 
 public class CommentFragment extends BaseFragment<CommentsViewModel, CommentListBinding> implements CommentListClickCallBack {
 
-
-    private String postId;
 
     public static CommentFragment newInstance() {
         Bundle args = new Bundle();
@@ -59,26 +57,15 @@ public class CommentFragment extends BaseFragment<CommentsViewModel, CommentList
             Post post = bundle.getParcelable(FragmentUtils.POST_KEY);
             dataBinding.setPostComments(post);
             if (post != null) {
-                postId = post.getId();
-                fetchData(postId, pageNo);
+                fetchData(post.getId());
             }
-            dataBinding.commentRecyclerView.addOnScrollListener(new EndlessRecyclerOnScrollListener() {
-                @Override
-                public void onLoadMore() {
-                    int totalCount = dataBinding.commentRecyclerView.getAdapter().getItemCount();
-                    if (totalCount < maxItemCount)
-                        fetchData(postId, ++pageNo);
-                }
-            });
         }
-
     }
 
-    private void fetchData(String postId, int pageNo) {
-        viewModel.getComments(postId, pageNo)
+    private void fetchData(String postId) {
+        viewModel.getComments(postId)
                 .observe(this, listResource -> {
                     if (null != listResource && (listResource.status == Status.ERROR || listResource.status == Status.SUCCESS)) {
-                        maxItemCount = listResource.totalDataAvailable;
                         dataBinding.progressBarComment.setVisibility(View.GONE);
                         dataBinding.errorLayoutComment.setText(listResource.getMessage());
                     }

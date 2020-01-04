@@ -1,8 +1,10 @@
 package com.herokuapp.di.module;
 
 import android.app.Application;
-import android.arch.persistence.room.Room;
 
+import androidx.room.Room;
+
+import com.herokuapp.BuildConfig;
 import com.herokuapp.data.local.EntityDao;
 import com.herokuapp.data.local.HeroKuDataBase;
 import com.herokuapp.data.remote.ApiConstants;
@@ -32,7 +34,10 @@ public class AppModule {
         okHttpClient.readTimeout(ApiConstants.READ_TIMEOUT, TimeUnit.MILLISECONDS);
         okHttpClient.writeTimeout(ApiConstants.WRITE_TIMEOUT, TimeUnit.MILLISECONDS);
         okHttpClient.addInterceptor(new RequestInterceptor());
-        okHttpClient.addInterceptor(new HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY));
+        if(BuildConfig.DEBUG)
+            okHttpClient.addInterceptor(new HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY));
+        else
+            okHttpClient.addInterceptor(new HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BASIC));
         return okHttpClient.build();
     }
 

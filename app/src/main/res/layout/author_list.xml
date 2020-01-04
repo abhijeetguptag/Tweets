@@ -3,13 +3,10 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
-
         <import type="android.view.View" />
-
         <variable
             name="resource"
             type="com.herokuapp.data.remote.Resource" />
-
     </data>
 
     <RelativeLayout
@@ -32,11 +29,12 @@
             android:textSize="16sp"
             android:textStyle="bold" />
 
-        <android.support.v7.widget.RecyclerView
+        <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/authorRecyclerView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_below="@id/progressBar_Author"
+            android:layout_marginTop="@dimen/size_6dp"
             app:resource="@{resource}" />
     </RelativeLayout>
 

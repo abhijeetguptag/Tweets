@@ -1,11 +1,19 @@
 package com.herokuapp.view.base;
 
 
-import android.support.v7.widget.RecyclerView;
+import androidx.annotation.NonNull;
+import androidx.paging.PagedList;
+import androidx.paging.PagedListAdapter;
+import androidx.recyclerview.widget.DiffUtil;
+import androidx.recyclerview.widget.RecyclerView;
 
-import java.util.List;
+public abstract class BaseAdapter<D, T extends RecyclerView.ViewHolder> extends PagedListAdapter<D, RecyclerView.ViewHolder> {
 
-public abstract class BaseAdapter<T extends RecyclerView.ViewHolder, D> extends RecyclerView.Adapter<T> {
+    @SuppressWarnings("unchecked")
+    protected BaseAdapter(@NonNull DiffUtil.ItemCallback diffCallback) {
+        super(diffCallback);
+    }
 
-    public abstract void setData(List<D> data);
+    public abstract void setData(PagedList<D> data);
+
 }

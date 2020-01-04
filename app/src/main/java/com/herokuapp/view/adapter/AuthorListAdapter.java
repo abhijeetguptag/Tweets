@@ -1,26 +1,46 @@
 package com.herokuapp.view.adapter;
 
-import android.support.annotation.NonNull;
-import android.support.v7.widget.RecyclerView;
+
+import android.annotation.SuppressLint;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
+
+import androidx.annotation.NonNull;
+import androidx.paging.PagedList;
+import androidx.recyclerview.widget.DiffUtil;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.herokuapp.data.entity.Author;
 import com.herokuapp.databinding.AuthorItemBinding;
 import com.herokuapp.view.adapter.listevents.AuthorListCallBack;
 import com.herokuapp.view.base.BaseAdapter;
 
-import java.util.ArrayList;
-import java.util.List;
+@SuppressWarnings("unchecked")
+public class AuthorListAdapter extends BaseAdapter<Author, AuthorListAdapter.AuthorViewHolder> {
 
-public class AuthorListAdapter extends BaseAdapter<AuthorListAdapter.AuthorViewHolder, Author> {
+    private static final DiffUtil.ItemCallback<Author> DIFF_CALLBACK =
+            new DiffUtil.ItemCallback<Author>() {
+                // Concert details may have changed if reloaded from the database,
+                // but ID is fixed.
+                @Override
+                public boolean areItemsTheSame(Author oldConcert, Author newConcert) {
+                    return oldConcert.getId() == newConcert.getId();
+                }
 
+                @SuppressLint("DiffUtilEquals")
+                @Override
+                public boolean areContentsTheSame(Author oldConcert,
+                                                  Author newConcert) {
+                    return oldConcert.equals(newConcert);
+                }
+            };
     private final AuthorListCallBack articleListCallback;
-    private List authorList;
+
 
     public AuthorListAdapter(@NonNull AuthorListCallBack articleListCallback) {
-        authorList = new ArrayList<>();
+        super(DIFF_CALLBACK);
         this.articleListCallback = articleListCallback;
+
     }
 
     @NonNull
@@ -30,18 +50,16 @@ public class AuthorListAdapter extends BaseAdapter<AuthorListAdapter.AuthorViewH
     }
 
     @Override
-    public void onBindViewHolder(@NonNull AuthorViewHolder viewHolder, int i) {
-        viewHolder.onBind((Author) authorList.get(i));
+    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
+        Author repoItem = this.getItem(position);
+        if (repoItem != null) {
+            ((AuthorViewHolder) holder).onBind(repoItem);
+        }
     }
 
     @Override
-    public int getItemCount() {
-        return authorList.size();
-    }
-
-    @Override
-    public void setData(List data) {
-        this.authorList = data;
+    public void setData(PagedList data) {
+        this.submitList(data);
         notifyDataSetChanged();
     }
 
@@ -61,10 +79,11 @@ public class AuthorListAdapter extends BaseAdapter<AuthorListAdapter.AuthorViewH
             return new AuthorViewHolder(itemListBinding, callback);
         }
 
-        private void onBind(Author authorEntity) {
-            binding.setAuthor(authorEntity);
-            binding.userCount.setText("" + authorEntity.getId());
-            binding.executePendingBindings();
+        private void onBind(Author author) {
+            if (author != null) {
+                binding.setAuthor(author);
+                binding.executePendingBindings();
+            }
         }
     }
 }
