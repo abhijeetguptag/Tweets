@@ -36,17 +36,14 @@ public abstract class NetworkBoundResource<T, V> {
         LiveData<T> dbSource = loadFromDb();
 
         // Fetch the data from network and add it to the resource
-        result.addSource(dbSource, data -> {
-            result.removeSource(dbSource);
-            if (shouldFetch()) {
-                fetchFromNetwork(dbSource);
-            } else {
-                result.addSource(dbSource, newData -> {
-                    if (null != newData)
-                        result.setValue(Resource.success(newData));
-                });
-            }
-        });
+        if (shouldFetch()) {
+            fetchFromNetwork(dbSource);
+        } else {
+            result.addSource(dbSource, newData -> {
+                if (null != newData)
+                    result.setValue(Resource.success(newData));
+            });
+        }
     }
 
     /**
@@ -103,7 +100,7 @@ public abstract class NetworkBoundResource<T, V> {
             protected void onPostExecute(Void aVoid) {
                 result.addSource(loadFromDb(), newData -> {
                     if (null != newData) {
-                            result.setValue(Resource.success(newData));
+                        result.setValue(Resource.success(newData));
                     }
                 });
             }

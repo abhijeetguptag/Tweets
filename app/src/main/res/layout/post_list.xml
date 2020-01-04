@@ -101,6 +101,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_below="@id/progressBar_post"
+            android:layout_marginTop="@dimen/size_6dp"
             app:resource="@{resource}" />
     </RelativeLayout>
 
