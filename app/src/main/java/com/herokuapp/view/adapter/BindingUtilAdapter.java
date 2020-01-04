@@ -16,7 +16,7 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
 
 
-class BindingUtilAdapter {
+public class BindingUtilAdapter {
 
     private BindingUtilAdapter() {
 
