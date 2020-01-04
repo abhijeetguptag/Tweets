@@ -57,6 +57,7 @@ public class CommentFragment extends BaseFragment<CommentsViewModel, CommentList
         Bundle bundle = getArguments();
         if (bundle != null) {
             Post post = bundle.getParcelable(FragmentUtils.POST_KEY);
+            dataBinding.setPostComments(post);
             if (post != null) {
                 postId = post.getId();
                 fetchData(postId, pageNo);

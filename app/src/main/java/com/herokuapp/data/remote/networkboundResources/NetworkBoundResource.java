@@ -1,12 +1,13 @@
 package com.herokuapp.data.remote.networkboundResources;
 
 import android.annotation.SuppressLint;
-import android.arch.lifecycle.LiveData;
-import android.arch.lifecycle.MediatorLiveData;
 import android.os.AsyncTask;
 import android.support.annotation.MainThread;
 import android.support.annotation.NonNull;
 import android.support.annotation.WorkerThread;
+
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MediatorLiveData;
 
 import com.google.gson.stream.MalformedJsonException;
 import com.herokuapp.HerokuApp;
@@ -28,7 +29,7 @@ public abstract class NetworkBoundResource<T, V> {
     private String totalCount;
 
     @MainThread
-    protected NetworkBoundResource() {
+    protected NetworkBoundResource(int pageNo) {
         result.setValue(Resource.loading(null));
 
         // Always load the data from DB initially so that we have

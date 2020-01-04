@@ -73,7 +73,7 @@ public class PostsFragment extends BaseFragment<PostViewModel, PostListBinding> 
             Author author = bundle.getParcelable(FragmentUtils.AUTHOR_KEY);
             if (author != null) {
                 dataBinding.setPostAuthor(author);
-                this.authorId = author.getId();
+                this.authorId = "" + author.getId();
                 fetchData(authorId, pageNo);
             }
             dataBinding.postRecyclerView.addOnScrollListener(new EndlessRecyclerOnScrollListener() {

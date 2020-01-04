@@ -51,7 +51,12 @@ public class AppModule {
     @Provides
     @Singleton
     HeroKuDataBase provideHerokuDatabase(Application application) {
-        return Room.databaseBuilder(application, HeroKuDataBase.class, "tweets.db").build();
+        return Room.databaseBuilder(application, HeroKuDataBase.class, "tweets.db")
+                // Wipes and rebuilds instead of migrating
+                // if no Migration object.
+                // Migration is not part of this practical.
+                .fallbackToDestructiveMigration()
+                .build();
     }
 
     @Provides

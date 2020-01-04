@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
@@ -9,16 +10,77 @@
         <variable
             name="resource"
             type="com.herokuapp.data.remote.Resource" />
+
+        <variable
+            name="post_comments"
+            type="com.herokuapp.data.entity.Post"/>
     </data>
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/post_container"
+            android:orientation="vertical"
+            android:padding="@dimen/size_10dp"
+            android:background="@color/very_lighter_gray">
 
+            <TextView
+                android:id="@+id/tvPost_Title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="start"
+                android:singleLine="false"
+                android:text="@{post_comments.title}"
+                android:textColor="@android:color/black"
+                android:textSize="@dimen/size_18sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tvPost_date"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@android:color/darker_gray"
+                android:textSize="@dimen/size_14sp"
+                android:textStyle="bold"
+                app:bindServerDate="@{post_comments.date}" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                                <ImageView
+                                    android:id="@+id/ivPost_item"
+                                    android:layout_width="@dimen/size_60dp"
+                                    android:layout_height="@dimen/size_60dp"
+                                    android:layout_centerVertical="true"
+                                    android:layout_margin="@dimen/size_6dp"
+                                    android:contentDescription="@null"
+                                    tools:background="@drawable/ic_launcher_background"
+                                    app:avatarUrl="@{post_comments.imageUrl}" />
+
+                <TextView
+                    android:id="@+id/tvPost_body"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:singleLine="false"
+                    android:text="@{post_comments.body}"
+                    android:textColor="@android:color/black"
+                    android:textSize="@dimen/size_14sp"
+                    android:layout_centerVertical="true"
+                    android:layout_toEndOf="@+id/ivPost_item"
+                    tools:text="sample/lorem asdsfdsfsf sadasdsadsad" />
+            </RelativeLayout>
+        </LinearLayout>
         <include
             android:id="@+id/progressBar_Comment"
-            layout="@layout/progress_bar" />
+            layout="@layout/progress_bar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/post_container"/>
 
         <TextView
             android:id="@+id/error_layout_Comment"
@@ -27,6 +89,7 @@
             android:layout_margin="@dimen/size_10dp"
             android:gravity="center_horizontal|center_vertical"
             android:orientation="vertical"
+            android:layout_below="@+id/progressBar_Comment"
             android:text="@{resource.message}"
             android:textSize="16sp"
             android:textStyle="bold"/>

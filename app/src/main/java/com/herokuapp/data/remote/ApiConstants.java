@@ -6,7 +6,7 @@ public class ApiConstants {
     public static final long CONNECT_TIMEOUT = 30000;
     public static final long READ_TIMEOUT = 30000;
     public static final long WRITE_TIMEOUT = 30000;
-    public static final int USER_FETCH_LIMIT = 20;
+    public static final int AUTHOR_FETCH_LIMIT = 20;
     public static final int POSTS_FETCH_LIMIT = 10;
     public static final int COMMENTS_FETCH_LIMIT = 10;
 

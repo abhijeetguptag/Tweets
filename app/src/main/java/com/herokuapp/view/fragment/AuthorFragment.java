@@ -80,7 +80,6 @@ public class AuthorFragment extends BaseFragment<AuthorsViewModel, AuthorListBin
         viewModel.getAuthorList(pageNo)
                 .observe(this, listResource -> {
                     if (null != listResource && (listResource.status == Status.ERROR || listResource.status == Status.SUCCESS)) {
-                        maxItemCount = listResource.totalDataAvailable;
                         dataBinding.progressBarAuthor.setVisibility(View.GONE);
                         dataBinding.errorLayoutAuthor.setText(listResource.getMessage());
                     }
@@ -91,8 +90,10 @@ public class AuthorFragment extends BaseFragment<AuthorsViewModel, AuthorListBin
                         dataBinding.errorLayoutAuthor.setVisibility(View.GONE);
                     }
 
-                    if (null != listResource && listResource.status == Status.ERROR)
+                    if (null != listResource && listResource.status == Status.ERROR) {
                         showToastMessage(listResource.getMessage());
+                        maxItemCount = listResource.totalDataAvailable;
+                    }
                 });
     }
 }
