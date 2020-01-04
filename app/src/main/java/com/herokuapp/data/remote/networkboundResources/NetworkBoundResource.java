@@ -2,10 +2,10 @@ package com.herokuapp.data.remote.networkboundResources;
 
 import android.annotation.SuppressLint;
 import android.os.AsyncTask;
-import android.support.annotation.MainThread;
-import android.support.annotation.NonNull;
-import android.support.annotation.WorkerThread;
 
+import androidx.annotation.MainThread;
+import androidx.annotation.NonNull;
+import androidx.annotation.WorkerThread;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MediatorLiveData;
 
@@ -29,7 +29,7 @@ public abstract class NetworkBoundResource<T, V> {
     private String totalCount;
 
     @MainThread
-    protected NetworkBoundResource(int pageNo) {
+    protected NetworkBoundResource() {
         result.setValue(Resource.loading(null));
 
         // Always load the data from DB initially so that we have
@@ -103,14 +103,7 @@ public abstract class NetworkBoundResource<T, V> {
             protected void onPostExecute(Void aVoid) {
                 result.addSource(loadFromDb(), newData -> {
                     if (null != newData) {
-                        int maxCount;
-                        try {
-                            maxCount = Integer.parseInt(totalCount);
-                            result.setValue(Resource.success(newData, maxCount));
-                        } catch (NumberFormatException exeception) {
                             result.setValue(Resource.success(newData));
-                        }
-
                     }
                 });
             }

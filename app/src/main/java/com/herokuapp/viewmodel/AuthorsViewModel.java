@@ -1,8 +1,7 @@
 package com.herokuapp.viewmodel;
 
-import android.arch.lifecycle.ViewModel;
-
 import androidx.lifecycle.LiveData;
+import androidx.lifecycle.ViewModel;
 import androidx.paging.PagedList;
 
 import com.herokuapp.data.entity.Author;
@@ -14,14 +13,15 @@ import javax.inject.Inject;
 public class AuthorsViewModel extends ViewModel {
 
     private final AuthorsRepository authorsRepository;
+    private LiveData<Resource<PagedList<Author>>> resourceLiveData;
 
     @Inject
     public AuthorsViewModel(AuthorsRepository authorsRepository) {
         this.authorsRepository = authorsRepository;
     }
 
-    public LiveData<Resource<PagedList<Author>>> getAuthorList(int pageNo) {
-        return authorsRepository.loadAuthors(pageNo);
+    public LiveData<Resource<PagedList<Author>>> getAuthorList() {
+        return authorsRepository.loadAuthors();
     }
 
 }

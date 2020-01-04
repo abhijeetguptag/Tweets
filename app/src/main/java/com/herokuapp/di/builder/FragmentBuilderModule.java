@@ -18,7 +18,6 @@ public abstract class FragmentBuilderModule {
     @ContributesAndroidInjector
     abstract PostsFragment contributePostFragment();
 
-
     @SuppressWarnings("unused")
     @ContributesAndroidInjector
     abstract CommentFragment contributeCommentFragment();

@@ -1,10 +1,11 @@
 package com.herokuapp.view.adapter;
 
 
-import android.databinding.BindingAdapter;
-import android.support.annotation.NonNull;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import androidx.annotation.NonNull;
+import androidx.databinding.BindingAdapter;
 
 import com.herokuapp.R;
 import com.squareup.picasso.Picasso;
@@ -15,7 +16,7 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
 
 
-public class BindingUtilAdapter {
+class BindingUtilAdapter {
 
     private BindingUtilAdapter() {
 

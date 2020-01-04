@@ -1,9 +1,8 @@
 package com.herokuapp.viewmodel;
 
 
-import android.arch.lifecycle.LiveData;
-import android.arch.lifecycle.ViewModel;
-
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.ViewModel;
 import androidx.paging.PagedList;
 
 import com.herokuapp.data.entity.Comments;
@@ -21,11 +20,8 @@ public class CommentsViewModel extends ViewModel {
         this.commentsRepository = commentsRepository;
     }
 
-    public LiveData<Resource<PagedList<Comments>>> getComments(String postId, int pageNo) {
-
-        return commentsRepository.loadCommentAssociatedWithPost(postId, pageNo);
-
-
+    public LiveData<Resource<PagedList<Comments>>> getComments(String postId) {
+        return commentsRepository.loadCommentAssociatedWithPost(postId);
     }
 
 }

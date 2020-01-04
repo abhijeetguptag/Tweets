@@ -1,8 +1,7 @@
 package com.herokuapp.data.remote.repository;
 
 
-import android.support.annotation.NonNull;
-
+import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
 import androidx.paging.DataSource;
 import androidx.paging.LivePagedListBuilder;
@@ -14,51 +13,84 @@ import com.herokuapp.data.remote.ApiConstants;
 import com.herokuapp.data.remote.ApiService;
 import com.herokuapp.data.remote.Resource;
 import com.herokuapp.data.remote.networkboundResources.NetworkBoundResource;
-import com.herokuapp.data.remote.repository.irepository.ICommentsRepository;
+
+import java.util.List;
 
 import javax.inject.Inject;
 
 import retrofit2.Call;
 
-public class CommentsRepository implements ICommentsRepository {
+public class CommentsRepository {
     private final EntityDao articleDao;
     private final ApiService apiService;
+    private final PagedList.Config myPagingConfig;
+    private String postId;
+    private int pageNo=1;
+
 
     @Inject
     CommentsRepository(EntityDao dao, ApiService service) {
         this.articleDao = dao;
         this.apiService = service;
+        myPagingConfig= new PagedList.Config.Builder()
+                .setPageSize(ApiConstants.COMMENTS_DB_FETCH_LIMIT)
+                .setEnablePlaceholders(true)
+                .build();
     }
 
+    public LiveData<Resource<PagedList<Comments>>> loadCommentAssociatedWithPost(String postId){
+        this.postId=postId;
+        return loadCommentAssociatedWithPost(postId,pageNo);
+    }
 
-    @Override
-    public LiveData<Resource<PagedList<Comments>>> loadCommentAssociatedWithPost(String postId, int pageNo) {
-        return new NetworkBoundResource<PagedList<Comments>, PagedList<Comments>>(pageNo) {
+    private LiveData<Resource<PagedList<Comments>>> loadCommentAssociatedWithPost(String postId, int pageNo) {
+        return new NetworkBoundResource<PagedList<Comments>, List<Comments>>() {
 
             @Override
-            protected void saveCallResult(PagedList<Comments> comments) {
+            protected void saveCallResult(List<Comments> comments) {
                 if (null != comments)
                     articleDao.saveComments(comments);
             }
 
+            @SuppressWarnings("unchecked")
             @NonNull
             @Override
             protected LiveData<PagedList<Comments>> loadFromDb() {
-
                 DataSource.Factory<Integer, Comments> myConcertDataSource =
                         articleDao.loadCommentsAssociatedWithPost(postId);
 
                 return
-                        new LivePagedListBuilder(myConcertDataSource, ApiConstants.COMMENTS_FETCH_LIMIT).build();
-
-//                return articleDao.loadCommentsAssociatedWithPost(postId);
+                        new LivePagedListBuilder(myConcertDataSource,myPagingConfig)
+                                .setBoundaryCallback(new CommentsCallBack())
+                                .build();
             }
 
             @NonNull
             @Override
-            protected Call<PagedList<Comments>> createCall() {
+            protected Call<List<Comments>> createCall() {
                 return apiService.fetchComments(postId, pageNo);
             }
         }.getAsLiveData();
+    }
+
+    private class CommentsCallBack extends PagedList.BoundaryCallback {
+        @Override
+        public void onZeroItemsLoaded() {
+            super.onZeroItemsLoaded();
+            loadCommentAssociatedWithPost(postId,pageNo);
+        }
+
+        @SuppressWarnings("unchecked")
+        @Override
+        public void onItemAtFrontLoaded(@NonNull Object itemAtFront) {
+            super.onItemAtFrontLoaded(itemAtFront);
+        }
+
+        @SuppressWarnings("unchecked")
+        @Override
+        public void onItemAtEndLoaded(@NonNull Object itemAtEnd) {
+            super.onItemAtEndLoaded(itemAtEnd);
+            loadCommentAssociatedWithPost(postId,++pageNo);
+        }
     }
 }

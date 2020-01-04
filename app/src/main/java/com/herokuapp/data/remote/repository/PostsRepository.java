@@ -1,67 +1,99 @@
 package com.herokuapp.data.remote.repository;
 
 
-import android.support.annotation.NonNull;
-
+import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
 import androidx.paging.DataSource;
 import androidx.paging.LivePagedListBuilder;
 import androidx.paging.PagedList;
 
-import com.herokuapp.data.entity.Comments;
 import com.herokuapp.data.entity.Post;
 import com.herokuapp.data.local.EntityDao;
 import com.herokuapp.data.remote.ApiConstants;
 import com.herokuapp.data.remote.ApiService;
 import com.herokuapp.data.remote.Resource;
 import com.herokuapp.data.remote.networkboundResources.NetworkBoundResource;
-import com.herokuapp.data.remote.repository.irepository.IPostsRepository;
+
+import java.util.List;
 
 import javax.inject.Inject;
 
 import retrofit2.Call;
 
-public class PostsRepository implements IPostsRepository {
+public class PostsRepository {
 
     private final EntityDao entityDao;
     private final ApiService apiService;
+    private final PagedList.Config myPagingConfig;
+    private String authorId;
+    private int pageNo=1;
 
     @Inject
     PostsRepository(EntityDao dao, ApiService service) {
         this.entityDao = dao;
         this.apiService = service;
+        myPagingConfig= new PagedList.Config.Builder()
+                .setPageSize(ApiConstants.POSTS_DB_LIMIT)
+                .setEnablePlaceholders(true)
+                .build();
+    }
+
+    public LiveData<Resource<PagedList<Post>>> loadPostAssociatedWithAuthor(String authorId){
+        this.authorId=authorId;
+        return loadPostAssociatedWithAuthor(authorId,pageNo);
     }
 
 
-    @Override
-    public LiveData<Resource<PagedList<Post>>> loadPostAssociatedWithAuthor(String authorId, int pageNo) {
-        return new NetworkBoundResource<PagedList<Post>, PagedList<Post>>(pageNo) {
+    private LiveData<Resource<PagedList<Post>>> loadPostAssociatedWithAuthor(String authorId, int pageNo) {
+        return new NetworkBoundResource<PagedList<Post>, List<Post>>() {
 
             @Override
-            protected void saveCallResult(PagedList<Post> posts) {
+            protected void saveCallResult(List<Post> posts) {
                 if (null != posts)
                     entityDao.savePosts(posts);
             }
 
+            @SuppressWarnings("unchecked")
             @NonNull
             @Override
             protected LiveData<PagedList<Post>> loadFromDb() {
-
-                DataSource.Factory<Integer, Comments> myConcertDataSource =
+                DataSource.Factory<Integer, Post> myConcertDataSource =
                         entityDao.loadPostsAssociatedWithAuthor(authorId);
 
                 return
-                        new LivePagedListBuilder(myConcertDataSource, ApiConstants.POSTS_FETCH_LIMIT).build();
+                        new LivePagedListBuilder(myConcertDataSource, myPagingConfig)
+                                .setBoundaryCallback(new PostsCallBack())
+                                .build();
 
-//                return entityDao.loadPostsAssociatedWithAuthor(authorId);
             }
 
             @NonNull
             @Override
-            protected Call<PagedList<Post>> createCall() {
+            protected Call<List<Post>> createCall() {
                 return apiService.fetchPosts(authorId, pageNo);
             }
         }.getAsLiveData();
+    }
+
+    private class PostsCallBack extends PagedList.BoundaryCallback {
+        @Override
+        public void onZeroItemsLoaded() {
+            super.onZeroItemsLoaded();
+            loadPostAssociatedWithAuthor(authorId,pageNo);
+        }
+
+        @SuppressWarnings("unchecked")
+        @Override
+        public void onItemAtFrontLoaded(@NonNull Object itemAtFront) {
+            super.onItemAtFrontLoaded(itemAtFront);
+        }
+
+        @SuppressWarnings("unchecked")
+        @Override
+        public void onItemAtEndLoaded(@NonNull Object itemAtEnd) {
+            super.onItemAtEndLoaded(itemAtEnd);
+            loadPostAssociatedWithAuthor(authorId,++pageNo);
+        }
     }
 
 }

@@ -1,8 +1,9 @@
 package com.herokuapp.data.entity;
 
-import android.arch.persistence.room.Entity;
 import android.os.Parcel;
 import android.os.Parcelable;
+
+import androidx.room.Entity;
 
 import com.google.gson.annotations.SerializedName;
 
@@ -34,7 +35,7 @@ public class Address implements Parcelable {
         this.longitude = longitude;
     }
 
-    protected Address(Parcel in) {
+    Address(Parcel in) {
         latitude = in.readString();
         longitude = in.readString();
     }

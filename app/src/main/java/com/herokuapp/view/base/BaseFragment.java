@@ -1,19 +1,21 @@
 package com.herokuapp.view.base;
 
-import android.arch.lifecycle.ViewModel;
-import android.arch.lifecycle.ViewModelProvider;
-import android.arch.lifecycle.ViewModelProviders;
-import android.databinding.DataBindingUtil;
-import android.databinding.ViewDataBinding;
 import android.os.Bundle;
-import android.support.annotation.LayoutRes;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.design.widget.Snackbar;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import androidx.annotation.LayoutRes;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.databinding.DataBindingUtil;
+import androidx.databinding.ViewDataBinding;
+import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModel;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.lifecycle.ViewModelProviders;
+
+import com.google.android.material.snackbar.Snackbar;
 
 import javax.inject.Inject;
 
@@ -23,9 +25,6 @@ public abstract class BaseFragment<V extends ViewModel, D extends ViewDataBindin
 
 
     protected boolean isLoading = false;
-    protected int maxItemCount;
-    protected int pageNo = 1;
-
     protected V viewModel;
     protected D dataBinding;
     @Inject
@@ -50,7 +49,7 @@ public abstract class BaseFragment<V extends ViewModel, D extends ViewDataBindin
         return dataBinding.getRoot();
     }
 
-    public void showToastMessage(String message) {
+    protected void showToastMessage(String message) {
 
         if (message != null && message.length() > 0) {
             Snackbar snackbar = Snackbar

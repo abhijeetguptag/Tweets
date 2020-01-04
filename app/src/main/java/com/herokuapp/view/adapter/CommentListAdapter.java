@@ -1,29 +1,48 @@
 package com.herokuapp.view.adapter;
 
-import android.support.annotation.NonNull;
-import android.support.v7.widget.RecyclerView;
+import android.annotation.SuppressLint;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
-import android.widget.Filter;
-import android.widget.Filterable;
+
+import androidx.annotation.NonNull;
+import androidx.paging.PagedList;
+import androidx.recyclerview.widget.DiffUtil;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.herokuapp.data.entity.Comments;
 import com.herokuapp.databinding.CommentItemBinding;
 import com.herokuapp.view.adapter.listevents.CommentListClickCallBack;
 import com.herokuapp.view.base.BaseAdapter;
 
-import java.util.ArrayList;
-import java.util.List;
 
-public class CommentListAdapter extends BaseAdapter<CommentListAdapter.CommentViewHolder, Comments>
-        implements Filterable {
+public class CommentListAdapter extends BaseAdapter<Comments, CommentListAdapter.CommentViewHolder> {
 
+    private static final DiffUtil.ItemCallback<Comments> DIFF_CALLBACK =
+            new DiffUtil.ItemCallback<Comments>() {
+                // Concert details may have changed if reloaded from the database,
+                // but ID is fixed.
+                @Override
+                public boolean areItemsTheSame(Comments oldConcert, Comments newConcert) {
+                    return oldConcert.getId().equals(newConcert.getId());
+                }
+
+                @SuppressLint("DiffUtilEquals")
+                @Override
+                public boolean areContentsTheSame(Comments oldConcert,
+                                                  Comments newConcert) {
+                    return oldConcert.equals(newConcert);
+                }
+            };
     private final CommentListClickCallBack commentListClickCallback;
-    private List<Comments> commentsList;
+//    public CommentListAdapter(@NonNull CommentListClickCallBack listClickCallBack) {
+//        commentsList = new ArrayList<>();
+//        this.commentListClickCallback = listClickCallBack;
+//    }
 
-    public CommentListAdapter(@NonNull CommentListClickCallBack listClickCallBack) {
-        commentsList = new ArrayList<>();
-        this.commentListClickCallback = listClickCallBack;
+    public CommentListAdapter(@NonNull CommentListClickCallBack articleListCallback) {
+        super(DIFF_CALLBACK);
+        this.commentListClickCallback = articleListCallback;
+
     }
 
     @NonNull
@@ -33,25 +52,18 @@ public class CommentListAdapter extends BaseAdapter<CommentListAdapter.CommentVi
     }
 
     @Override
-    public void onBindViewHolder(@NonNull CommentListAdapter.CommentViewHolder viewHolder, int i) {
-        viewHolder.onBind(commentsList.get(i));
+    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
+        Comments repoItem = this.getItem(position);
+        if (repoItem != null) {
+            ((CommentListAdapter.CommentViewHolder) holder).onBind(repoItem);
+        }
     }
 
     @Override
-    public int getItemCount() {
-        return commentsList.size();
+    public void setData(PagedList<Comments> data) {
+        this.submitList(data);
+        notifyDataSetChanged();
     }
-
-    @Override
-    public Filter getFilter() {
-        return null;
-    }
-
-    @Override
-    public void setData(List<Comments> data) {
-        this.commentsList = data;
-    }
-
 
     static class CommentViewHolder extends RecyclerView.ViewHolder {
 

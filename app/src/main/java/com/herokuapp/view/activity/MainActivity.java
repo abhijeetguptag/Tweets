@@ -1,7 +1,8 @@
 package com.herokuapp.view.activity;
 
 import android.os.Bundle;
-import android.support.annotation.Nullable;
+
+import androidx.annotation.Nullable;
 
 import com.herokuapp.R;
 import com.herokuapp.databinding.ActivityMainBinding;
@@ -19,6 +20,6 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        FragmentUtils.replaceFragment(this, AuthorFragment.newInstance(), R.id.fragContainer, true);
+        FragmentUtils.replaceFragment(this, AuthorFragment.newInstance(), R.id.fragContainer, false);
     }
 }
