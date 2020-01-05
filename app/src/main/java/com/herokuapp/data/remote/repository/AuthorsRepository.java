@@ -35,7 +35,6 @@ public class AuthorsRepository {
 
         myPagingConfig= new PagedList.Config.Builder()
                 .setPageSize(ApiConstants.AUTHOR_DB_FETCH_LIMIT)
-                .setEnablePlaceholders(true)
                 .build();
     }
 
