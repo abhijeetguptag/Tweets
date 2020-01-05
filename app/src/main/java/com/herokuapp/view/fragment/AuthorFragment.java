@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.herokuapp.R;
 import com.herokuapp.data.entity.Author;
-import com.herokuapp.data.remote.Status;
+import com.herokuapp.data.Status;
 import com.herokuapp.databinding.AuthorListBinding;
 import com.herokuapp.view.adapter.AuthorListAdapter;
 import com.herokuapp.view.adapter.listevents.AuthorListCallBack;

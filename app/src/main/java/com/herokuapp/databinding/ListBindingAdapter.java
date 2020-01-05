@@ -4,7 +4,7 @@ import androidx.databinding.BindingAdapter;
 import androidx.paging.PagedList;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.herokuapp.data.remote.Resource;
+import com.herokuapp.data.Resource;
 import com.herokuapp.view.base.BaseAdapter;
 
 final class ListBindingAdapter {

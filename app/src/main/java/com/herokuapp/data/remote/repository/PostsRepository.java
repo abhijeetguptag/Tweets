@@ -9,10 +9,10 @@ import androidx.paging.PagedList;
 
 import com.herokuapp.data.entity.Post;
 import com.herokuapp.data.local.EntityDao;
-import com.herokuapp.data.remote.ApiConstants;
-import com.herokuapp.data.remote.ApiService;
-import com.herokuapp.data.remote.Resource;
-import com.herokuapp.data.remote.networkboundResources.NetworkBoundResource;
+import com.herokuapp.data.remote.network.ApiConstants;
+import com.herokuapp.data.remote.network.ApiService;
+import com.herokuapp.data.Resource;
+import com.herokuapp.data.remote.network.NetworkBoundResource;
 
 import java.util.List;
 

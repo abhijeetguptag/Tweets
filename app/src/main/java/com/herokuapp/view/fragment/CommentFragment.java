@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import com.herokuapp.R;
 import com.herokuapp.data.entity.Comments;
 import com.herokuapp.data.entity.Post;
-import com.herokuapp.data.remote.Status;
+import com.herokuapp.data.Status;
 import com.herokuapp.databinding.CommentListBinding;
 import com.herokuapp.view.adapter.CommentListAdapter;
 import com.herokuapp.view.adapter.listevents.CommentListClickCallBack;

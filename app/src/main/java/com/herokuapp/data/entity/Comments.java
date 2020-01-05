@@ -11,6 +11,8 @@ import androidx.room.PrimaryKey;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.util.Objects;
+
 @Entity(tableName = "comments")
 public class Comments implements Parcelable {
 
@@ -43,11 +45,9 @@ public class Comments implements Parcelable {
     private String email;
     @SerializedName("avatarUrl")
     private String avatarUrl;
-
     public Comments() {
 
     }
-
     protected Comments(@NonNull Parcel in) {
         id = in.readString();
         postId = in.readString();
@@ -56,6 +56,25 @@ public class Comments implements Parcelable {
         userName = in.readString();
         email = in.readString();
         avatarUrl = in.readString();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Comments comments = (Comments) o;
+        return id.equals(comments.id) &&
+                Objects.equals(postId, comments.postId) &&
+                Objects.equals(date, comments.date) &&
+                Objects.equals(body, comments.body) &&
+                Objects.equals(userName, comments.userName) &&
+                Objects.equals(email, comments.email) &&
+                Objects.equals(avatarUrl, comments.avatarUrl);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, postId, date, body, userName, email, avatarUrl);
     }
 
     @NonNull

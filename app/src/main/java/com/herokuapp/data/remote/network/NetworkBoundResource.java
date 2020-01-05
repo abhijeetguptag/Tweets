@@ -1,4 +1,4 @@
-package com.herokuapp.data.remote.networkboundResources;
+package com.herokuapp.data.remote.network;
 
 import android.annotation.SuppressLint;
 import android.os.AsyncTask;
@@ -12,7 +12,7 @@ import androidx.lifecycle.MediatorLiveData;
 import com.google.gson.stream.MalformedJsonException;
 import com.herokuapp.HerokuApp;
 import com.herokuapp.R;
-import com.herokuapp.data.remote.Resource;
+import com.herokuapp.data.Resource;
 
 import java.io.IOException;
 import java.net.SocketTimeoutException;

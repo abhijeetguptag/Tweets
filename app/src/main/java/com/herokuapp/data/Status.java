@@ -1,4 +1,4 @@
-package com.herokuapp.data.remote;
+package com.herokuapp.data;
 
 public enum Status {
     SUCCESS,

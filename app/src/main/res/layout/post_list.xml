@@ -9,7 +9,7 @@
 
         <variable
             name="resource"
-            type="com.herokuapp.data.remote.Resource" />
+            type="com.herokuapp.data.Resource" />
 
         <variable
             name="post_author"
@@ -93,6 +93,7 @@
             android:gravity="center_horizontal|center_vertical"
             android:orientation="vertical"
             android:text="@{resource.message}"
+            android:layout_below="@+id/progressBar_post"
             android:textSize="16sp"
             android:textStyle="bold" />
 

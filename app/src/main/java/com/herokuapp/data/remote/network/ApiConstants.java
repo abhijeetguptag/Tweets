@@ -1,4 +1,4 @@
-package com.herokuapp.data.remote;
+package com.herokuapp.data.remote.network;
 
 public class ApiConstants {
 
@@ -10,9 +10,9 @@ public class ApiConstants {
     public static final int POSTS_NETWORK_FETCH_LIMIT = 20;
     public static final int COMMENTS_NETWORK_FETCH_LIMIT = 20;
 
-    public static final int AUTHOR_DB_FETCH_LIMIT = 15;
-    public static final int POSTS_DB_LIMIT = 10;
-    public static final int COMMENTS_DB_FETCH_LIMIT = 10;
+    public static final int AUTHOR_DB_FETCH_LIMIT = 20;
+    public static final int POSTS_DB_LIMIT = 20;
+    public static final int COMMENTS_DB_FETCH_LIMIT = 20;
 
 
     private ApiConstants() {

@@ -7,9 +7,10 @@ import androidx.room.Room;
 import com.herokuapp.BuildConfig;
 import com.herokuapp.data.local.EntityDao;
 import com.herokuapp.data.local.HeroKuDataBase;
-import com.herokuapp.data.remote.ApiConstants;
-import com.herokuapp.data.remote.ApiService;
-import com.herokuapp.data.remote.RequestInterceptor;
+import com.herokuapp.data.remote.network.ApiConstants;
+import com.herokuapp.data.remote.network.ApiService;
+import com.herokuapp.data.remote.network.RequestInterceptor;
+import com.herokuapp.data.remote.network.RetryCallAdapterFactory;
 
 import java.util.concurrent.TimeUnit;
 
@@ -33,6 +34,7 @@ public class AppModule {
         okHttpClient.connectTimeout(ApiConstants.CONNECT_TIMEOUT, TimeUnit.MILLISECONDS);
         okHttpClient.readTimeout(ApiConstants.READ_TIMEOUT, TimeUnit.MILLISECONDS);
         okHttpClient.writeTimeout(ApiConstants.WRITE_TIMEOUT, TimeUnit.MILLISECONDS);
+        okHttpClient.retryOnConnectionFailure(true);
         okHttpClient.addInterceptor(new RequestInterceptor());
         if(BuildConfig.DEBUG)
             okHttpClient.addInterceptor(new HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY));
@@ -47,6 +49,7 @@ public class AppModule {
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(ApiConstants.BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
+                .addCallAdapterFactory(RetryCallAdapterFactory.create())
                 .client(okHttpClient)
                 .build();
 
