@@ -1,6 +1,6 @@
 {
   "project_info": {
-    "project_number": "814989814099",
+    "project_number": "814989dffe9",
     "firebase_url": "https://herokuapp-64445.firebaseio.com",
     "project_id": "herokuapp-64445",
     "storage_bucket": "herokuapp-64445.appspot.com"
@@ -8,27 +8,27 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:814989814099:android:66588be8f7832cbcbd59a6",
+        "mobilesdk_app_id": "1:81498981dwd4099:android:66588be8f783csa2cbcbd59a6",
         "android_client_info": {
           "package_name": "com.herokuapp"
         }
       },
       "oauth_client": [
         {
-          "client_id": "814989814099-ig9ts0j2eag0vgfj5qfj2ek2303ll81q.apps.googleusercontent.com",
+          "client_id": "814989814099-ig9ts0j2eag0vgfj5qfj2sdek2303ll81q.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyBG6qHGw6j8ygS59fFLeoMhFxAG8XekXpk"
+          "current_key": "AIzaSyBG6qHGw6j8ygcdcS59fFLeoMhFxAG8XekXpk"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "814989814099-ig9ts0j2eag0vgfj5qfj2ek2303ll81q.apps.googleusercontent.com",
+              "client_id": "81498981cd4099-ig9ts0j2cdceag0vgfj5qfj2ek23cd03ll81q.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
