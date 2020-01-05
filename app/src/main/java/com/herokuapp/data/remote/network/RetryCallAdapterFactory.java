@@ -127,8 +127,7 @@ public class RetryCallAdapterFactory extends CallAdapter.Factory {
                 retryCall();
             } else if (maxRetries > 0) {
                 Log.d(TAG, "No retries left sending timeout up.");
-                callback.onFailure(call,
-                        new TimeoutException(String.format("No retries left after %s attempts.", maxRetries)));
+                callback.onFailure(call, t);
             } else {
                 callback.onFailure(call, t);
             }
