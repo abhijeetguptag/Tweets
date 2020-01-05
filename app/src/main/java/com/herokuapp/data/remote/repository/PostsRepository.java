@@ -34,7 +34,6 @@ public class PostsRepository {
         this.apiService = service;
         myPagingConfig= new PagedList.Config.Builder()
                 .setPageSize(ApiConstants.POSTS_DB_LIMIT)
-                .setEnablePlaceholders(true)
                 .build();
     }
 

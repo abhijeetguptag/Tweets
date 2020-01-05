@@ -34,7 +34,6 @@ public class CommentsRepository {
         this.apiService = service;
         myPagingConfig= new PagedList.Config.Builder()
                 .setPageSize(ApiConstants.COMMENTS_DB_FETCH_LIMIT)
-                .setEnablePlaceholders(true)
                 .build();
     }
 
