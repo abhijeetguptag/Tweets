@@ -52,7 +52,6 @@ dependencies {
     implementation "com.squareup.retrofit2:adapter-rxjava2:$retrofit_version"
     implementation "com.squareup.retrofit2:converter-gson:$retrofit_gsonconverter"
     implementation "com.squareup.okhttp3:logging-interceptor:$retrofit_logging"
-    implementation "com.squareup.okhttp3:logging-interceptor:$retrofit_logging"
     implementation "com.squareup.okhttp3:okhttp-urlconnection:$retrofit_urlconnedction"
 
     // Dagger 2

@@ -10,6 +10,8 @@ import androidx.room.PrimaryKey;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.util.Objects;
+
 
 @Entity(tableName = "authors")
 public class Author implements Parcelable {
@@ -35,13 +37,10 @@ public class Author implements Parcelable {
 
     @SerializedName("userName")
     private String userName;
-
     @SerializedName("email")
     private String email;
-
     @SerializedName("address")
     private Address address;
-
     @SerializedName("avatarUrl")
     private String avatarUrl;
 
@@ -54,6 +53,24 @@ public class Author implements Parcelable {
         userName = in.readString();
         email = in.readString();
         avatarUrl = in.readString();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Author author = (Author) o;
+        return id == author.id &&
+                name.equals(author.name) &&
+                userName.equals(author.userName) &&
+                Objects.equals(email, author.email) &&
+                Objects.equals(address, author.address) &&
+                Objects.equals(avatarUrl, author.avatarUrl);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, name, userName, email, address, avatarUrl);
     }
 
     @NonNull

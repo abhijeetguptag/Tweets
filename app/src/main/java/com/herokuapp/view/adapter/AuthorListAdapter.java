@@ -1,7 +1,6 @@
 package com.herokuapp.view.adapter;
 
 
-import android.annotation.SuppressLint;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
@@ -15,7 +14,6 @@ import com.herokuapp.databinding.AuthorItemBinding;
 import com.herokuapp.view.adapter.listevents.AuthorListCallBack;
 import com.herokuapp.view.base.BaseAdapter;
 
-@SuppressWarnings("unchecked")
 public class AuthorListAdapter extends BaseAdapter<Author, AuthorListAdapter.AuthorViewHolder> {
 
     private static final DiffUtil.ItemCallback<Author> DIFF_CALLBACK =
@@ -23,14 +21,13 @@ public class AuthorListAdapter extends BaseAdapter<Author, AuthorListAdapter.Aut
                 // Concert details may have changed if reloaded from the database,
                 // but ID is fixed.
                 @Override
-                public boolean areItemsTheSame(Author oldConcert, Author newConcert) {
+                public boolean areItemsTheSame(@NonNull Author oldConcert,@NonNull Author newConcert) {
                     return oldConcert.getId() == newConcert.getId();
                 }
 
-                @SuppressLint("DiffUtilEquals")
                 @Override
                 public boolean areContentsTheSame(Author oldConcert,
-                                                  Author newConcert) {
+                                                  @NonNull Author newConcert) {
                     return oldConcert.equals(newConcert);
                 }
             };

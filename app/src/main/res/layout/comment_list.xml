@@ -9,7 +9,7 @@
 
         <variable
             name="resource"
-            type="com.herokuapp.data.remote.Resource" />
+            type="com.herokuapp.data.Resource" />
 
         <variable
             name="post_comments"
@@ -86,13 +86,16 @@
             android:id="@+id/error_layout_Comment"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/size_10dp"
-            android:gravity="center_horizontal|center_vertical"
-            android:orientation="vertical"
             android:layout_below="@+id/progressBar_Comment"
+            android:layout_marginStart="@dimen/size_10dp"
+            android:layout_marginTop="@dimen/size_10dp"
+            android:layout_marginEnd="@dimen/size_10dp"
+            android:layout_marginBottom="@dimen/size_10dp"
+            android:orientation="vertical"
             android:text="@{resource.message}"
             android:textSize="16sp"
-            android:textStyle="bold"/>
+            android:textStyle="bold"
+            tools:text="@tools:sample/lorem/random" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/commentRecyclerView"

@@ -6,7 +6,7 @@
         <import type="android.view.View" />
         <variable
             name="resource"
-            type="com.herokuapp.data.remote.Resource" />
+            type="com.herokuapp.data.Resource" />
     </data>
 
     <RelativeLayout

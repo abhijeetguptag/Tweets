@@ -7,6 +7,8 @@ import androidx.room.Entity;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.util.Objects;
+
 @Entity(tableName = "address")
 public class Address implements Parcelable {
 
@@ -38,6 +40,20 @@ public class Address implements Parcelable {
     Address(Parcel in) {
         latitude = in.readString();
         longitude = in.readString();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Address address = (Address) o;
+        return Objects.equals(latitude, address.latitude) &&
+                Objects.equals(longitude, address.longitude);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(latitude, longitude);
     }
 
     public String getLatitude() {

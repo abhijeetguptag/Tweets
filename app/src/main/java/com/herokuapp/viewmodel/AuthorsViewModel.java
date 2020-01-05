@@ -5,7 +5,7 @@ import androidx.lifecycle.ViewModel;
 import androidx.paging.PagedList;
 
 import com.herokuapp.data.entity.Author;
-import com.herokuapp.data.remote.Resource;
+import com.herokuapp.data.Resource;
 import com.herokuapp.data.remote.repository.AuthorsRepository;
 
 import javax.inject.Inject;

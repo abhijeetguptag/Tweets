@@ -13,7 +13,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import com.herokuapp.R;
 import com.herokuapp.data.entity.Author;
 import com.herokuapp.data.entity.Post;
-import com.herokuapp.data.remote.Status;
+import com.herokuapp.data.Status;
 import com.herokuapp.databinding.PostListBinding;
 import com.herokuapp.view.adapter.PostListAdapter;
 import com.herokuapp.view.adapter.listevents.PostsClickListener;

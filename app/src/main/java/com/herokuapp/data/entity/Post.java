@@ -11,6 +11,8 @@ import androidx.room.PrimaryKey;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.util.Objects;
+
 
 @Entity(tableName = "posts")
 public class Post implements Parcelable {
@@ -32,7 +34,6 @@ public class Post implements Parcelable {
     private String id;
     @SerializedName("title")
     private String title;
-
     @ForeignKey(entity = Author.class, parentColumns = "id", childColumns = "authorId")
     @SerializedName("authorId")
     private String authorId;
@@ -42,11 +43,9 @@ public class Post implements Parcelable {
     private String date;
     @SerializedName("imageUrl")
     private String imageUrl;
-
     public Post() {
 
     }
-
     protected Post(@NonNull Parcel in) {
         id = in.readString();
         title = in.readString();
@@ -54,6 +53,24 @@ public class Post implements Parcelable {
         body = in.readString();
         date = in.readString();
         imageUrl = in.readString();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Post post = (Post) o;
+        return id.equals(post.id) &&
+                Objects.equals(title, post.title) &&
+                Objects.equals(authorId, post.authorId) &&
+                Objects.equals(body, post.body) &&
+                Objects.equals(date, post.date) &&
+                Objects.equals(imageUrl, post.imageUrl);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, title, authorId, body, date, imageUrl);
     }
 
     @NonNull
